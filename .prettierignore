@@ -1,0 +1,14 @@
+node_modules/
+package-lock.json
+LICENSE.md
+agents-doc/
+perf/results/
+
+# Dawn v16.0.0 theme files keep upstream formatting (see docs/decisions.md).
+assets/*
+config/*
+layout/*
+locales/*
+sections/*
+snippets/*
+templates/*
