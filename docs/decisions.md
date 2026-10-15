@@ -48,3 +48,42 @@
 - Prettier with the Liquid plugin would rewrite 256 Dawn files. Keeping upstream formatting keeps every later diff limited to real changes, which is what the before/after comparison shows.
 - Dawn's scripts are classic scripts that share top-level functions and constants across files (`debounce`, `publish`, `PUB_SUB_EVENTS` and others), which ESLint reports as undefined or unused per file. The other findings are upstream code. New JavaScript gets the full recommended rule set.
 - On the imported Dawn code `theme-check:recommended` reports 0 errors (9 warnings), so no check needs to be disabled.
+
+## 4. Demo catalog created through the Admin API
+
+**Decision.** Products, variants, images, collections and menus are created by `npm run catalog:seed` from `data/products.csv`, `data/images/prompts.json` and `scripts/src/catalog.js`; nothing is entered by hand in the Shopify admin. `npm run catalog:verify` checks the store against the same files.
+
+**Reasons.**
+
+- The catalog is part of the measurement setup: every theme state is measured against the same products, images and pages, and a fresh store can be rebuilt identically.
+- The script authenticates as a Dev Dashboard app with the client credentials grant; the token is requested at run time and kept in memory only. The grant works only for stores in the same organization as the app.
+- Admin API version `2026-10` (the latest stable on 2026-10-15) is pinned. The client fails if Shopify serves a different version, because Shopify otherwise falls forward silently. Throttled requests are retried after the wait the cost data allows.
+- Writes are idempotent: products are saved with `productSet` keyed by handle; collections are looked up by handle before `collectionCreate`; images are matched by alt text and uploaded through staged uploads only when missing; slides are matched by file name in Content > Files; menus are looked up by handle and updated with `menuUpdate` only when their items differ (a new store already has `main-menu` and `footer`), `menuCreate` only when a handle is missing.
+- Collections are automated (`sources` with a product type condition), so membership follows the CSV.
+
+**Sources (checked 2026-10-15).**
+
+- Client credentials grant: https://shopify.dev/docs/apps/build/authentication-authorization/client-credentials-grant
+- API versioning: https://shopify.dev/docs/api/usage/versioning
+- `productSet`: https://shopify.dev/docs/api/admin-graphql/2026-10/mutations/productSet
+- Collections with sources: https://shopify.dev/docs/apps/build/product-merchandising/products-and-collections/use-new-collections-model
+- `menuUpdate`: https://shopify.dev/docs/api/admin-graphql/2026-10/mutations/menuUpdate
+- `menuCreate`: https://shopify.dev/docs/api/admin-graphql/2026-10/mutations/menuCreate
+
+## 5. Inventory is not tracked
+
+**Decision.** Every variant is created with inventory tracking off (`inventoryItem.tracked: false`); `catalog:verify` fails if a variant is tracked or not available for sale.
+
+**Reasons.**
+
+- An untracked variant never goes out of stock, so product pages always render the add-to-cart state that is measured, never "Sold out". Checking that products are purchasable is a precondition of every measurement series.
+- Stock levels are not part of this case; tracking them would only add a way for the measured page to change between runs.
+
+## 6. Large original images
+
+**Decision.** Product images are 3000x3750 px, carousel slides 3840x2160 (desktop) and 1800x2250 (mobile), JPEG of 0.5 to 2 MB. The seed and its dry run reject files outside the exact size or weight range.
+
+**Reasons.**
+
+- Merchants upload large camera or stock originals. The unoptimised theme references them directly, which is part of the problem being measured.
+- The optimised theme uses the same files through `image_url` with explicit widths, so the difference comes from how the theme requests images, not from different source files. Shopify's CDN chooses the delivered format itself; no format conversion is claimed as an optimisation.
