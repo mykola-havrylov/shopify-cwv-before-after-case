@@ -13,7 +13,10 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "theme-check": "shopify theme check --fail-level error",
-    "perf": "node perf/run.mjs"
+    "perf": "node perf/run.mjs",
+    "catalog:seed": "node scripts/seed-catalog.js",
+    "catalog:seed:dry-run": "node scripts/seed-catalog.js --dry-run",
+    "catalog:verify": "node scripts/verify-catalog.js"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
