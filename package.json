@@ -1,0 +1,27 @@
+{
+  "name": "shopify-cwv-before-after-case",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Dawn-based Shopify theme with a reproducible before/after performance case.",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "node": ">=22.19"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "theme-check": "shopify theme check --fail-level error",
+    "perf": "node perf/run.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@shopify/prettier-plugin-liquid": "1.11.2",
+    "chrome-launcher": "1.2.2",
+    "eslint": "10.12.0",
+    "globals": "17.13.0",
+    "lighthouse": "13.5.0",
+    "prettier": "3.9.10"
+  }
+}
