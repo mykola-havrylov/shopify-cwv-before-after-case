@@ -1,0 +1,61 @@
+{
+  "page": "collection",
+  "formFactor": "mobile",
+  "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
+  "median": {
+    "score": 90,
+    "lcp": 3329.9170000000004,
+    "cls": 0,
+    "tbt": 11.5,
+    "fcp": 2091.06,
+    "weight": 1773244,
+    "requests": 364
+  },
+  "runs": [
+    {
+      "score": 77,
+      "lcp": 4527.937,
+      "cls": 0,
+      "tbt": 11.5,
+      "fcp": 2757.4389999999994,
+      "weight": 1776967,
+      "requests": 368
+    },
+    {
+      "score": 78,
+      "lcp": 4381.032,
+      "cls": 0,
+      "tbt": 11,
+      "fcp": 2731.032,
+      "weight": 1776696,
+      "requests": 364
+    },
+    {
+      "score": 92,
+      "lcp": 3027.625,
+      "cls": 0,
+      "tbt": 42.5,
+      "fcp": 2091.06,
+      "weight": 1773244,
+      "requests": 363
+    },
+    {
+      "score": 90,
+      "lcp": 3329.9170000000004,
+      "cls": 0,
+      "tbt": 44,
+      "fcp": 1948.1519999999998,
+      "weight": 1760147,
+      "requests": 360
+    },
+    {
+      "score": 94,
+      "lcp": 2613.544,
+      "cls": 0,
+      "tbt": 10,
+      "fcp": 2031.5439999999999,
+      "weight": 1772647,
+      "requests": 364
+    }
+  ]
+}
