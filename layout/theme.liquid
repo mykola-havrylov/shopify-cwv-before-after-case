@@ -49,6 +49,28 @@
       }, { once: true });
     </script>
 
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="preconnect" href="https://monorail-edge.shopifysvc.com">
+    <link rel="preconnect" href="https://shop.app">
+    <link rel="dns-prefetch" href="https://cdn.shopify.com">
+    <link rel="dns-prefetch" href="https://monorail-edge.shopifysvc.com">
+    <link rel="preload" href="{{ 'jquery-3.7.1.min.js' | asset_url }}" as="script">
+    <link rel="preload" href="{{ 'theme-custom.css' | asset_url }}" as="style">
+    <link rel="preload" href="{{ 'hero-poster.jpg' | asset_url }}" as="image">
+    <link rel="preload" href="https://cdn.shopify.com/s/files/1/0713/5382/7412/files/slide-1-desktop.jpg?v=1792067657" as="image" media="(min-width: 750px)">
+    <link rel="preload" href="https://cdn.shopify.com/s/files/1/0713/5382/7412/files/slide-2-desktop.jpg?v=1792067657" as="image" media="(min-width: 750px)">
+    <link rel="preload" href="https://cdn.shopify.com/s/files/1/0713/5382/7412/files/slide-3-desktop.jpg?v=1792067657" as="image" media="(min-width: 750px)">
+    <link rel="preload" href="https://cdn.shopify.com/s/files/1/0713/5382/7412/files/slide-1-mobile.jpg?v=1792067657" as="image" media="(max-width: 749px)">
+    <link rel="preload" href="https://cdn.shopify.com/s/files/1/0713/5382/7412/files/slide-2-mobile.jpg?v=1792067657" as="image" media="(max-width: 749px)">
+    <link rel="preload" href="https://cdn.shopify.com/s/files/1/0713/5382/7412/files/slide-3-mobile.jpg?v=1792067657" as="image" media="(max-width: 749px)">
+
+    <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}"></script>
+    <script src="{{ 'vendor-analytics.js' | asset_url }}"></script>
+    <script src="{{ 'vendor-tag-manager.js' | asset_url }}"></script>
+    <script src="{{ 'reviews-widget.js' | asset_url }}"></script>
+    <script src="{{ 'hero-carousel.js' | asset_url }}"></script>
+    <script src="{{ 'interaction-handlers.js' | asset_url }}"></script>
+
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
@@ -72,11 +94,11 @@
     %}
 
     {% style %}
-      {{ settings.type_body_font | font_face: font_display: 'swap' }}
-      {{ body_font_bold | font_face: font_display: 'swap' }}
-      {{ body_font_italic | font_face: font_display: 'swap' }}
-      {{ body_font_bold_italic | font_face: font_display: 'swap' }}
-      {{ settings.type_header_font | font_face: font_display: 'swap' }}
+      {{ settings.type_body_font | font_face }}
+      {{ body_font_bold | font_face }}
+      {{ body_font_italic | font_face }}
+      {{ body_font_bold_italic | font_face }}
+      {{ settings.type_header_font | font_face }}
 
       {% for scheme in settings.color_schemes -%}
         {% assign scheme_classes = scheme_classes | append: ', .color-' | append: scheme.id %}
@@ -279,6 +301,15 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-custom.css' | asset_url | stylesheet_tag }}
+    {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+    {{ 'component-facets.css' | asset_url | stylesheet_tag }}
+    {{ 'component-card.css' | asset_url | stylesheet_tag }}
+    {{ 'component-slider.css' | asset_url | stylesheet_tag }}
+    {{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
+    {{ 'quick-order-list.css' | asset_url | stylesheet_tag }}
+    {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
+    {{ 'section-image-banner.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
 
     {%- if settings.cart_type == 'drawer' -%}
