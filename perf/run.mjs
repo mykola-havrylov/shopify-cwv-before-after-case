@@ -32,10 +32,10 @@ function fail(message) {
 function parseCli() {
   const { values } = parseArgs({
     options: {
-      store: { type: 'string', default: process.env.SHOP_STORE },
+      store: { type: 'string', default: process.env.SHOPIFY_SHOP },
       label: { type: 'string' },
       page: { type: 'string', multiple: true, default: ['home=/'] },
-      'preview-url': { type: 'string' },
+      'theme-id': { type: 'string' },
       'expect-theme-id': { type: 'string' },
       runs: { type: 'string', default: '5' },
       desktop: { type: 'boolean', default: false },
@@ -43,27 +43,23 @@ function parseCli() {
     strict: true,
   });
 
-  const previewUrl = values['preview-url'];
-  if (!previewUrl && !values.store)
-    fail('--store <store>.myshopify.com is required (or SHOP_STORE in the environment).');
+  if (!values.store) fail('--store <store>.myshopify.com is required (or SHOPIFY_SHOP in the environment).');
   if (!values.label || !/^[\w.-]+$/.test(values.label)) fail('--label is required: letters, digits, ".", "_", "-".');
 
   const runs = Number(values.runs);
   if (!Number.isInteger(runs) || runs < 1) fail('--runs must be a positive integer.');
 
-  const expectedThemeId = values['expect-theme-id'];
-  if (expectedThemeId && !/^\d+$/.test(expectedThemeId)) fail('Theme ids are numeric.');
-  if (previewUrl && !expectedThemeId) fail('--preview-url requires --expect-theme-id.');
-
-  let origin;
-  if (previewUrl) {
-    origin = new URL(previewUrl).origin;
-    if (!new URL(origin).hostname.endsWith('.shopifypreview.com'))
-      fail('--preview-url must be a shopifypreview.com link.');
-  } else {
-    const host = values.store.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-    origin = `https://${host.includes('.') ? host : `${host}.myshopify.com`}`;
+  const previewThemeId = values['theme-id'];
+  const expectedThemeId = values['expect-theme-id'] ?? previewThemeId;
+  for (const id of [previewThemeId, expectedThemeId]) {
+    if (id && !/^\d+$/.test(id)) fail('Theme ids are numeric.');
   }
+  if (previewThemeId && expectedThemeId !== previewThemeId) {
+    fail('--theme-id and --expect-theme-id must be the same theme.');
+  }
+
+  const host = values.store.replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+  const origin = `https://${host.includes('.') ? host : `${host}.myshopify.com`}`;
   const pages = values.page.map((entry) => {
     const [name, pagePath] = entry.split('=');
     if (!name || !pagePath?.startsWith('/')) fail(`--page expects name=/path, got "${entry}".`);
@@ -72,7 +68,7 @@ function parseCli() {
 
   return {
     origin,
-    preview: Boolean(previewUrl),
+    previewThemeId,
     label: values.label,
     pages,
     expectedThemeId,
@@ -81,10 +77,17 @@ function parseCli() {
   };
 }
 
-function buildUrl(origin, pagePath) {
+function buildUrl(origin, pagePath, previewThemeId) {
   const url = new URL(pagePath, origin);
+  if (previewThemeId) url.searchParams.set('preview_theme_id', previewThemeId);
   url.searchParams.set('pb', '0');
   return url.toString();
+}
+
+async function activatePreview(origin, pagePath, previewThemeId, jar) {
+  const { response, finalUrl, body } = await request(buildUrl(origin, pagePath, previewThemeId), jar);
+  if (!response.ok) fail(`Preview of theme ${previewThemeId} answered HTTP ${response.status}.`);
+  if (isPasswordPage(finalUrl, body)) fail('The preview request returned the password page.');
 }
 
 function hostCookies(jar, url) {
@@ -256,19 +259,18 @@ async function main() {
   await mkdir(dir, { recursive: true });
 
   const jar = new Map();
-  const access = options.preview
-    ? 'preview link'
-    : `password ${(await unlockStorefront(options.origin, jar)) ? 'set' : 'not set'}`;
+  const access = `password ${(await unlockStorefront(options.origin, jar)) ? 'set' : 'not set'}`;
   console.log(`Origin ${options.origin}, ${options.formFactor}, ${options.runs} run(s), ${access}.`);
-  const cookie = options.preview ? '' : cookieHeader(hostCookies(jar, options.origin));
 
   const environmentFile = path.join(dir, 'environment.json');
   const environment = await readJson(environmentFile, { measurements: {} });
 
   for (const page of options.pages) {
+    if (options.previewThemeId) await activatePreview(options.origin, page.path, options.previewThemeId, jar);
     const url = buildUrl(options.origin, page.path);
     console.log(`${page.name}: ${url}`);
     const theme = await preflight(url, jar, options.expectedThemeId);
+    const cookie = cookieHeader(hostCookies(jar, options.origin));
 
     const runs = [];
     const reports = [];

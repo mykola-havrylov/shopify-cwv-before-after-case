@@ -19,15 +19,15 @@
 
 ## 2. Measurement methodology
 
-**Decision.** Lighthouse 13.5.0 from npm, pinned; 5 runs per URL; per-metric median; mobile primary, desktop separate; default Lighthouse throttling presets; `pb=0` on every URL; the published theme measured on the `myshopify.com` domain with the storefront password, unpublished themes through the `shopifypreview.com` preview link; served theme id checked before every series; Lighthouse/Chrome/OS versions, date, URL and theme id stored with every result. Details: [`perf/README.md`](../perf/README.md). Budgets fixed before the first optimisation: [`perf/budget.md`](../perf/budget.md).
+**Decision.** Lighthouse 13.5.0 from npm, pinned; 5 runs per URL; per-metric median; mobile primary, desktop separate; default Lighthouse throttling presets; `pb=0` on every URL; the published theme measured on the `myshopify.com` domain with the storefront password, unpublished themes on the same domain with `preview_theme_id=<id>`; served theme id checked before every series; Lighthouse/Chrome/OS versions, date, URL and theme id stored with every result. Details: [`perf/README.md`](../perf/README.md). Budgets fixed before the first optimisation: [`perf/budget.md`](../perf/budget.md).
 
 **Reasons.**
 
 - Shopify recommends at least three runs per URL and the median, because a single run can vary by 5 to 10 points. Five runs narrow the spread further at acceptable cost.
 - Shopify's summary speed score weights home 17 %, product 40 %, collection 43 %; the Theme Store requires a plain average of at least 60 across those pages on mobile and desktop. Both are reported, separately from the per-metric tables.
 - The preview bar is hidden with `pb=0`, as Shopify's testing guide says.
-- Unpublished themes are measured through the `shopifypreview.com` link copied from the preview bar, as Shopify's testing guide describes; it needs no store password. The link does not show which theme it serves, so the runner reads `Shopify.theme.id` from the served page and fails unless it matches the expected theme id.
-- Local development server (`shopify theme dev`) output is never measured: it is not the theme as served by Shopify's storefront.
+- Unpublished themes are measured on the store domain with `preview_theme_id=<id>`, the preview link form that `shopify theme dev` prints for its development theme. The storefront password is still required. Shopify answers a `preview_theme_id` request with a redirect that drops the parameter and keeps the preview in the session cookie, and headless Chrome with a fixed `Cookie` header does not follow that redirect to the preview, so the runner activates the preview once in its own session and measures the plain URL with the same cookie. The URL does not guarantee which theme is rendered, so the runner reads `Shopify.theme.id` from the served page and fails unless it matches the requested theme id.
+- The local server of `shopify theme dev` (`127.0.0.1`) is never measured: it proxies and hot-reloads, so it is not the theme as served by Shopify's storefront. A development theme's preview link is measured only while its files are not changing; it is deleted on `shopify auth logout`, so a frozen state is measured from an unpublished theme instead.
 - TBT is a lab proxy for responsiveness, not INP. The store is password-protected and has no traffic, so the Web Performance Dashboard and CrUX have no field data for it.
 - The storefront password is sent through the documented `storefront_password` form (`POST /password` with a `password` field) and read from the environment, never from a file in the repository.
 
@@ -35,6 +35,7 @@
 
 - Testing for performance: https://shopify.dev/docs/storefronts/themes/best-practices/performance/testing-for-performance
 - Theme Store requirements: https://shopify.dev/docs/storefronts/themes/store/requirements
+- `theme dev` (development theme, preview link, deletion on logout): https://shopify.dev/docs/api/shopify-cli/theme/theme-dev
 - Shopify Lighthouse CI: https://shopify.dev/docs/storefronts/themes/tools/lighthouse-ci
 - Password template: https://shopify.dev/docs/storefronts/themes/architecture/templates/password
 - `form` tag, `storefront_password`: https://shopify.dev/docs/api/liquid/tags/form
