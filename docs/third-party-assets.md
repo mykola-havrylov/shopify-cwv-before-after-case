@@ -18,8 +18,34 @@ Not imported: Dawn's `README.md`, `release-notes.md`, `.github/`, `.gitignore`. 
 
 ### Changed Dawn files
 
-| File | Change |
-| ---- | ------ |
+| File                            | Change                                                                                                                        |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `layout/theme.liquid`           | Head scripts, resource hints and global stylesheets added; `font_display: 'swap'` removed from the five `font_face` calls     |
+| `snippets/card-product.liquid`  | Primary card image rendered as a plain `<img>` of the original file, without `srcset`, `sizes`, dimensions or lazy loading    |
+| `snippets/product-media.liquid` | Product gallery image rendered as a plain `<img>` of the original file, without `srcset`, `sizes`, dimensions or lazy loading |
+| `templates/index.json`          | Hero carousel and promo video sections added; the image banner section removed                                                |
+
+## jQuery
+
+| Field     | Value                                                                              |
+| --------- | ---------------------------------------------------------------------------------- |
+| Source    | https://code.jquery.com/jquery-3.7.1.min.js                                        |
+| Version   | 3.7.1                                                                              |
+| SHA-256   | `fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a`                 |
+| License   | MIT, https://jquery.org/license/                                                   |
+| Copyright | OpenJS Foundation and other contributors                                           |
+| Added     | 2026-10-21, as `assets/jquery-3.7.1.min.js`, unmodified; used by the hero carousel |
+
+## Video
+
+| Field    | Value                                                                                             |
+| -------- | ------------------------------------------------------------------------------------------------- |
+| Source   | https://www.pexels.com/uk-ua/video/39708564/                                                      |
+| Author   | Ekam Juneja                                                                                       |
+| License  | Pexels License, https://www.pexels.com/license/ (checked 2026-10-21; attribution is not required) |
+| Original | `16929689_1920_1080_30fps.mp4`, 1920×1080, 10 s, H.264                                            |
+| Used as  | `assets/hero-video.mp4`, unmodified                                                               |
+| Poster   | `assets/hero-poster.jpg`, a still frame of the same video at 4 s                                  |
 
 ## npm packages
 

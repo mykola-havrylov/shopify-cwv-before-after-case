@@ -1,0 +1,170 @@
+/* Own storefront styles: hero carousel, promo video and reviews widget. Loaded on every page. */
+.hero-carousel {
+  position: relative;
+  overflow: hidden;
+  height: calc(100vh - var(--header-height, 0px));
+  height: calc(100svh - var(--header-height, 0px));
+  min-height: 32rem;
+  visibility: hidden;
+  background: #1c2a24;
+}
+
+.hero-carousel.is-ready {
+  visibility: visible;
+}
+
+.hero-carousel__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.hero-carousel__slide.is-active {
+  opacity: 1;
+}
+
+.hero-carousel__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-carousel__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4rem;
+  padding: 0 2rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero-carousel__heading {
+  margin: 0 0 1.6rem;
+  color: #fff;
+  font-size: 3.2rem;
+}
+
+@media screen and (min-width: 750px) {
+  .hero-carousel__heading {
+    font-size: 5.2rem;
+  }
+}
+
+.hero-carousel__link {
+  display: inline-block;
+  padding: 1.2rem 2.8rem;
+  border: 1px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.1rem;
+}
+
+.hero-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  width: 4.4rem;
+  height: 4.4rem;
+  margin-top: -2.2rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 2.4rem;
+  cursor: pointer;
+}
+
+.hero-carousel__arrow--prev {
+  left: 1.6rem;
+}
+
+.hero-carousel__arrow--next {
+  right: 1.6rem;
+}
+
+.hero-carousel__dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1.6rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.hero-carousel__dot {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hero-carousel__dot.is-active {
+  background: #fff;
+}
+
+.promo-video {
+  position: relative;
+  overflow: hidden;
+  background-color: #1c2a24;
+  background-image: url('https://cdn.shopify.com/s/files/1/0713/5382/7412/files/slide-2-desktop.jpg?v=1792067657');
+  background-size: cover;
+  background-position: center;
+}
+
+.promo-video__media {
+  display: block;
+  width: 100%;
+  height: calc(100vh - var(--header-height, 0px));
+  height: calc(100svh - var(--header-height, 0px));
+  min-height: 32rem;
+  object-fit: cover;
+}
+
+.promo-video__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3rem;
+  padding: 0 2rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+
+.promo-video__heading {
+  margin: 0;
+  color: #fff;
+  font-size: 2.8rem;
+}
+
+.reviews-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0.8rem 0;
+  font-size: 1.3rem;
+}
+
+.reviews-widget--product {
+  margin: 1.2rem 0;
+  font-size: 1.5rem;
+}
+
+.reviews-widget__stars {
+  --size: 1.6rem;
+  display: inline-block;
+  width: calc(var(--size) * 5);
+  height: var(--size);
+  background: linear-gradient(90deg, #c8791f calc(var(--rating) / 5 * 100%), #d9d9d9 0);
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 14.5 4.6 17.5l1.2-6L1.3 7.3l6.1-.7z"/></svg>')
+    0 0 / var(--size) var(--size) repeat-x;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path d="M10 1l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 14.5 4.6 17.5l1.2-6L1.3 7.3l6.1-.7z"/></svg>')
+    0 0 / var(--size) var(--size) repeat-x;
+}

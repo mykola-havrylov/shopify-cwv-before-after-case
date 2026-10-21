@@ -42,13 +42,13 @@
 
 ## 3. Formatting and linting of imported Dawn files
 
-**Decision.** Prettier skips Dawn's theme directories (`assets/*`, `config/*`, `layout/*`, `locales/*`, `sections/*`, `snippets/*`, `templates/*`); new own files there are added back with `!` entries in `.prettierignore`. ESLint lints all `assets/**/*.js`, but for the 36 JavaScript files imported from Dawn it turns off `no-undef`, `no-unused-vars`, `no-redeclare`, `no-self-assign` and `no-useless-assignment`. Theme Check runs `theme-check:recommended` with no check disabled.
+**Decision.** Prettier skips Dawn's theme directories (`assets/*`, `config/*`, `layout/*`, `locales/*`, `sections/*`, `snippets/*`, `templates/*`); new own files there are added back with `!` entries in `.prettierignore`. ESLint lints all `assets/**/*.js`, but for the 36 JavaScript files imported from Dawn it turns off `no-undef`, `no-unused-vars`, `no-redeclare`, `no-self-assign` and `no-useless-assignment`. Theme Check runs `theme-check:recommended`; the only exceptions are two checks ignored for the files that carry the deliberate baseline problems (see decision 7).
 
 **Reasons.**
 
 - Prettier with the Liquid plugin would rewrite 256 Dawn files. Keeping upstream formatting keeps every later diff limited to real changes, which is what the before/after comparison shows.
 - Dawn's scripts are classic scripts that share top-level functions and constants across files (`debounce`, `publish`, `PUB_SUB_EVENTS` and others), which ESLint reports as undefined or unused per file. The other findings are upstream code. New JavaScript gets the full recommended rule set.
-- On the imported Dawn code `theme-check:recommended` reports 0 errors (9 warnings), so no check needs to be disabled.
+- On the imported Dawn code `theme-check:recommended` reports 0 errors (9 warnings), so no check had to be disabled for it.
 
 ## 4. Demo catalog created through the Admin API
 
@@ -88,3 +88,12 @@
 
 - Merchants upload large camera or stock originals. The unoptimised theme references them directly, which is part of the problem being measured.
 - The optimised theme uses the same files through `image_url` with explicit widths, so the difference comes from how the theme requests images, not from different source files. Shopify's CDN chooses the delivered format itself; no format conversion is claimed as an optimisation.
+
+## 7. Theme Check exceptions for the baseline
+
+**Decision.** `.theme-check.yml` ignores `ImgWidthAndHeight` for `sections/hero-carousel.liquid`, `snippets/card-product.liquid` and `snippets/product-media.liquid`, and `ParserBlockingScript` for `layout/theme.liquid`. Each entry is removed in the commit that fixes the file.
+
+**Reasons.**
+
+- Both checks are errors in `theme-check:recommended`, and the CI gate runs at `--fail-level error`. The baseline problems (images without dimensions, scripts without `defer` in the head) are exactly what these checks report.
+- The ignores are limited to the files that carry the problem, so any new offence elsewhere still fails the gate, and a removed ignore shows in the diff next to the fix.

@@ -12,3 +12,9 @@ locales/*
 sections/*
 snippets/*
 templates/*
+!assets/hero-carousel.js
+!assets/interaction-handlers.js
+!assets/reviews-widget.js
+!assets/theme-custom.css
+!assets/vendor-analytics.js
+!assets/vendor-tag-manager.js
