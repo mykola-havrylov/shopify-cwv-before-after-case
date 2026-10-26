@@ -3,59 +3,65 @@
   "formFactor": "mobile",
   "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
   "median": {
-    "score": 90,
-    "lcp": 3329.9170000000004,
+    "score": 97,
+    "lcp": 2012.8899999999999,
     "cls": 0,
-    "tbt": 11.5,
-    "fcp": 2091.06,
-    "weight": 1773244,
-    "requests": 364
+    "tbt": 19.5,
+    "fcp": 1863.8135,
+    "weight": 1808615,
+    "themeRequests": 45,
+    "requests": 370
   },
   "runs": [
     {
-      "score": 77,
-      "lcp": 4527.937,
+      "score": 80,
+      "lcp": 4828.5585,
       "cls": 0,
-      "tbt": 11.5,
-      "fcp": 2757.4389999999994,
-      "weight": 1776967,
-      "requests": 368
+      "tbt": 8.5,
+      "fcp": 1884.3765,
+      "weight": 1808670,
+      "themeRequests": 45,
+      "requests": 369
     },
     {
-      "score": 78,
-      "lcp": 4381.032,
-      "cls": 0,
-      "tbt": 11,
-      "fcp": 2731.032,
-      "weight": 1776696,
-      "requests": 364
-    },
-    {
-      "score": 92,
-      "lcp": 3027.625,
+      "score": 97,
+      "lcp": 2012.8899999999999,
       "cls": 0,
       "tbt": 42.5,
-      "fcp": 2091.06,
-      "weight": 1773244,
-      "requests": 363
+      "fcp": 1937.8899999999999,
+      "weight": 1808736,
+      "themeRequests": 45,
+      "requests": 371
     },
     {
-      "score": 90,
-      "lcp": 3329.9170000000004,
+      "score": 98,
+      "lcp": 1859.301,
       "cls": 0,
-      "tbt": 44,
-      "fcp": 1948.1519999999998,
-      "weight": 1760147,
-      "requests": 360
+      "tbt": 19.5,
+      "fcp": 1859.301,
+      "weight": 1808615,
+      "themeRequests": 45,
+      "requests": 373
     },
     {
-      "score": 94,
-      "lcp": 2613.544,
+      "score": 97,
+      "lcp": 2012.3305,
       "cls": 0,
-      "tbt": 10,
-      "fcp": 2031.5439999999999,
-      "weight": 1772647,
-      "requests": 364
+      "tbt": 41.5,
+      "fcp": 1862.3305,
+      "weight": 1785213,
+      "themeRequests": 45,
+      "requests": 370
+    },
+    {
+      "score": 97,
+      "lcp": 2013.8135,
+      "cls": 0,
+      "tbt": 19.5,
+      "fcp": 1863.8135,
+      "weight": 1784623,
+      "themeRequests": 45,
+      "requests": 368
     }
   ]
 }

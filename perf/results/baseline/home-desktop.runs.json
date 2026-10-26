@@ -4,58 +4,64 @@
   "url": "https://cwv-demo.myshopify.com/?pb=0",
   "median": {
     "score": 71,
-    "lcp": 3136.9094999999998,
+    "lcp": 2967.17875,
     "cls": 0,
-    "tbt": 137,
-    "fcp": 576.8464999999999,
-    "weight": 13928177,
-    "requests": 381
+    "tbt": 134,
+    "fcp": 575.178,
+    "weight": 13961517,
+    "themeRequests": 70,
+    "requests": 390
   },
   "runs": [
     {
+      "score": 79,
+      "lcp": 1934.7905,
+      "cls": 0,
+      "tbt": 133,
+      "fcp": 571.7425000000001,
+      "weight": 13961517,
+      "themeRequests": 70,
+      "requests": 389
+    },
+    {
+      "score": 70,
+      "lcp": 3095.0645000000004,
+      "cls": 0,
+      "tbt": 137,
+      "fcp": 576.345,
+      "weight": 13977550,
+      "themeRequests": 70,
+      "requests": 390
+    },
+    {
+      "score": 68,
+      "lcp": 3566.1185,
+      "cls": 0,
+      "tbt": 133,
+      "fcp": 575.178,
+      "weight": 13943538,
+      "themeRequests": 70,
+      "requests": 394
+    },
+    {
+      "score": 76,
+      "lcp": 2316.691,
+      "cls": 0,
+      "tbt": 134,
+      "fcp": 572.503,
+      "weight": 13990562,
+      "themeRequests": 70,
+      "requests": 388
+    },
+    {
       "score": 71,
-      "lcp": 3136.9094999999998,
-      "cls": 0,
-      "tbt": 129,
-      "fcp": 576.8464999999999,
-      "weight": 13916311,
-      "requests": 381
-    },
-    {
-      "score": 70,
-      "lcp": 3142.3840000000005,
+      "lcp": 2967.17875,
       "cls": 0,
       "tbt": 137,
-      "fcp": 576.5384999999999,
-      "weight": 13892676,
-      "requests": 380
-    },
-    {
-      "score": 78,
-      "lcp": 2119.3889999999997,
-      "cls": 0.0002053344149361469,
-      "tbt": 129,
-      "fcp": 582.171,
-      "weight": 13939748,
-      "requests": 383
-    },
-    {
-      "score": 75,
-      "lcp": 2429.996,
-      "cls": 0,
-      "tbt": 138,
-      "fcp": 583.2884999999999,
-      "weight": 13928177,
-      "requests": 381
-    },
-    {
-      "score": 70,
-      "lcp": 3140.514,
-      "cls": 0,
-      "tbt": 137,
-      "fcp": 574.9189999999999,
-      "weight": 13939231,
-      "requests": 380
+      "fcp": 580.027,
+      "weight": 13832127,
+      "themeRequests": 70,
+      "requests": 390
     }
   ]
 }

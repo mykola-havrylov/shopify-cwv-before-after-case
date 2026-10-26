@@ -14,7 +14,7 @@ Lab measurements follow Shopify's [Testing for performance](https://shopify.dev/
 | Summary score | Shopify weighted score, reported separately from the metric tables: home 17 %, product 40 %, collection 43 %                                                                                                                                                             |
 | Floor         | Theme Store requirement: average Lighthouse performance score of at least 60 across home, product and collection, mobile and desktop separately                                                                                                                          |
 
-Metrics are always reported separately: performance score, LCP, CLS, TBT, page weight and requests. A difference that is inside the spread of the 5 runs is labelled `within run-to-run variance`.
+Metrics are always reported separately: performance score, LCP, CLS, TBT, page weight and theme requests (all requests are reported next to them). A difference that is inside the spread of the 5 runs is labelled `within run-to-run variance`.
 
 ## What these numbers are not
 

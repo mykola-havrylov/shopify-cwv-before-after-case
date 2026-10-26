@@ -1,7 +1,7 @@
 {
   "measurements": {
     "home-mobile": {
-      "date": "2026-10-22T11:23:42.161Z",
+      "date": "2026-10-26T12:24:16.429Z",
       "url": "https://cwv-demo.myshopify.com/?pb=0",
       "theme": {
         "id": "146800902228",
@@ -26,10 +26,10 @@
         "deviceScaleFactor": 1.75,
         "disabled": false
       },
-      "benchmarkIndex": 3579.5
+      "benchmarkIndex": 3597.5
     },
     "product-mobile": {
-      "date": "2026-10-22T11:28:20.041Z",
+      "date": "2026-10-26T12:28:53.463Z",
       "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
       "theme": {
         "id": "146800902228",
@@ -54,10 +54,10 @@
         "deviceScaleFactor": 1.75,
         "disabled": false
       },
-      "benchmarkIndex": 3528
+      "benchmarkIndex": 3556.5
     },
     "collection-mobile": {
-      "date": "2026-10-22T11:32:57.323Z",
+      "date": "2026-10-26T12:33:30.703Z",
       "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
       "theme": {
         "id": "146800902228",
@@ -82,10 +82,10 @@
         "deviceScaleFactor": 1.75,
         "disabled": false
       },
-      "benchmarkIndex": 3587.5
+      "benchmarkIndex": 3467.5
     },
     "home-desktop": {
-      "date": "2026-10-22T11:37:43.824Z",
+      "date": "2026-10-26T12:38:22.337Z",
       "url": "https://cwv-demo.myshopify.com/?pb=0",
       "theme": {
         "id": "146800902228",
@@ -110,10 +110,10 @@
         "deviceScaleFactor": 1,
         "disabled": false
       },
-      "benchmarkIndex": 3480.5
+      "benchmarkIndex": 3520
     },
     "product-desktop": {
-      "date": "2026-10-22T11:42:22.110Z",
+      "date": "2026-10-26T12:43:00.694Z",
       "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
       "theme": {
         "id": "146800902228",
@@ -141,7 +141,7 @@
       "benchmarkIndex": 3594.5
     },
     "collection-desktop": {
-      "date": "2026-10-22T11:46:59.656Z",
+      "date": "2026-10-26T12:47:40.527Z",
       "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
       "theme": {
         "id": "146800902228",
@@ -166,7 +166,7 @@
         "deviceScaleFactor": 1,
         "disabled": false
       },
-      "benchmarkIndex": 3599
+      "benchmarkIndex": 3573.5
     }
   },
   "lighthouse": "13.5.0",
