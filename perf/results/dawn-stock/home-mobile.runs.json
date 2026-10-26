@@ -3,59 +3,65 @@
   "formFactor": "mobile",
   "url": "https://cwv-demo.myshopify.com/?pb=0",
   "median": {
-    "score": 96,
-    "lcp": 2314.5565,
+    "score": 97,
+    "lcp": 2280.8775,
     "cls": 0,
-    "tbt": 39,
-    "fcp": 1939.5565000000001,
-    "weight": 1877021,
-    "requests": 360
+    "tbt": 8,
+    "fcp": 1720.1985,
+    "weight": 1895165,
+    "themeRequests": 50,
+    "requests": 363
   },
   "runs": [
     {
-      "score": 71,
-      "lcp": 4616.128000000001,
+      "score": 97,
+      "lcp": 2428.223,
       "cls": 0,
-      "tbt": 14.5,
-      "fcp": 2920.32,
-      "weight": 1857523,
-      "requests": 357
+      "tbt": 42,
+      "fcp": 1078.223,
+      "weight": 1873143,
+      "themeRequests": 50,
+      "requests": 365
     },
     {
       "score": 98,
-      "lcp": 1977.7015000000001,
+      "lcp": 2020.1985,
       "cls": 0,
-      "tbt": 40,
-      "fcp": 1857.4725,
-      "weight": 1881052,
-      "requests": 361
+      "tbt": 8,
+      "fcp": 1720.1985,
+      "weight": 1895165,
+      "themeRequests": 50,
+      "requests": 368
+    },
+    {
+      "score": 99,
+      "lcp": 1378.548,
+      "cls": 0,
+      "tbt": 8,
+      "fcp": 1228.548,
+      "weight": 1894792,
+      "themeRequests": 50,
+      "requests": 363
     },
     {
       "score": 96,
-      "lcp": 2314.5565,
+      "lcp": 2280.8775,
       "cls": 0,
-      "tbt": 39,
-      "fcp": 1939.5565000000001,
-      "weight": 1880915,
-      "requests": 361
+      "tbt": 42.5,
+      "fcp": 1868.9525,
+      "weight": 1897544,
+      "themeRequests": 50,
+      "requests": 363
     },
     {
-      "score": 97,
-      "lcp": 2159.016,
+      "score": 96,
+      "lcp": 2311.4755,
       "cls": 0,
-      "tbt": 38.5,
-      "fcp": 2009.016,
-      "weight": 1877021,
-      "requests": 358
-    },
-    {
-      "score": 85,
-      "lcp": 3984.713,
-      "cls": 0,
-      "tbt": 41,
-      "fcp": 1933.0895,
-      "weight": 1876782,
-      "requests": 360
+      "tbt": 7.5,
+      "fcp": 1861.4755,
+      "weight": 1896786,
+      "themeRequests": 50,
+      "requests": 363
     }
   ]
 }

@@ -1,12 +1,12 @@
 {
   "measurements": {
     "home-mobile": {
-      "date": "2026-10-21T10:22:31.468Z",
+      "date": "2026-10-26T12:52:18.923Z",
       "url": "https://cwv-demo.myshopify.com/?pb=0",
       "theme": {
-        "id": "146574082132",
-        "name": "shopify-cwv-before-after-case/main",
-        "role": "main"
+        "id": "146928992340",
+        "name": "dawn-stock",
+        "role": "unpublished"
       },
       "runs": 5,
       "formFactor": "mobile",
@@ -26,15 +26,15 @@
         "deviceScaleFactor": 1.75,
         "disabled": false
       },
-      "benchmarkIndex": 3548.5
+      "benchmarkIndex": 3600.5
     },
     "product-mobile": {
-      "date": "2026-10-21T10:27:08.529Z",
+      "date": "2026-10-26T12:56:57.764Z",
       "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
       "theme": {
-        "id": "146574082132",
-        "name": "shopify-cwv-before-after-case/main",
-        "role": "main"
+        "id": "146928992340",
+        "name": "dawn-stock",
+        "role": "unpublished"
       },
       "runs": 5,
       "formFactor": "mobile",
@@ -54,15 +54,15 @@
         "deviceScaleFactor": 1.75,
         "disabled": false
       },
-      "benchmarkIndex": 3602
+      "benchmarkIndex": 3587.5
     },
     "collection-mobile": {
-      "date": "2026-10-21T10:31:45.709Z",
+      "date": "2026-10-26T13:01:35.626Z",
       "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
       "theme": {
-        "id": "146574082132",
-        "name": "shopify-cwv-before-after-case/main",
-        "role": "main"
+        "id": "146928992340",
+        "name": "dawn-stock",
+        "role": "unpublished"
       },
       "runs": 5,
       "formFactor": "mobile",
@@ -82,15 +82,15 @@
         "deviceScaleFactor": 1.75,
         "disabled": false
       },
-      "benchmarkIndex": 3432
+      "benchmarkIndex": 3545.5
     },
     "home-desktop": {
-      "date": "2026-10-21T10:36:25.149Z",
+      "date": "2026-10-26T13:06:14.889Z",
       "url": "https://cwv-demo.myshopify.com/?pb=0",
       "theme": {
-        "id": "146574082132",
-        "name": "shopify-cwv-before-after-case/main",
-        "role": "main"
+        "id": "146928992340",
+        "name": "dawn-stock",
+        "role": "unpublished"
       },
       "runs": 5,
       "formFactor": "desktop",
@@ -110,15 +110,15 @@
         "deviceScaleFactor": 1,
         "disabled": false
       },
-      "benchmarkIndex": 3387.5
+      "benchmarkIndex": 3585.5
     },
     "product-desktop": {
-      "date": "2026-10-21T10:41:07.562Z",
+      "date": "2026-10-26T13:10:51.935Z",
       "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
       "theme": {
-        "id": "146574082132",
-        "name": "shopify-cwv-before-after-case/main",
-        "role": "main"
+        "id": "146928992340",
+        "name": "dawn-stock",
+        "role": "unpublished"
       },
       "runs": 5,
       "formFactor": "desktop",
@@ -138,15 +138,15 @@
         "deviceScaleFactor": 1,
         "disabled": false
       },
-      "benchmarkIndex": 3567.5
+      "benchmarkIndex": 3615.5
     },
     "collection-desktop": {
-      "date": "2026-10-21T10:45:54.975Z",
+      "date": "2026-10-26T13:15:29.985Z",
       "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
       "theme": {
-        "id": "146574082132",
-        "name": "shopify-cwv-before-after-case/main",
-        "role": "main"
+        "id": "146928992340",
+        "name": "dawn-stock",
+        "role": "unpublished"
       },
       "runs": 5,
       "formFactor": "desktop",
@@ -166,7 +166,7 @@
         "deviceScaleFactor": 1,
         "disabled": false
       },
-      "benchmarkIndex": 3560
+      "benchmarkIndex": 3574
     }
   },
   "lighthouse": "13.5.0",
