@@ -10,6 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import * as chromeLauncher from 'chrome-launcher';
 import lighthouse, { desktopConfig } from 'lighthouse';
+import { countThemeRequests } from './theme-requests.mjs';
 
 const RESULTS_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), 'results');
 const PAGE_WEIGHTS = { home: 0.17, product: 0.4, collection: 0.43 };
@@ -20,7 +21,8 @@ const METRICS = [
   { key: 'tbt', label: 'TBT (ms)', format: (v) => v.toFixed(0) },
   { key: 'fcp', label: 'FCP (s)', format: (v) => (v / 1000).toFixed(2) },
   { key: 'weight', label: 'Weight (KiB)', format: (v) => (v / 1024).toFixed(0) },
-  { key: 'requests', label: 'Requests', format: (v) => v.toFixed(0) },
+  { key: 'themeRequests', label: 'Theme requests', format: (v) => v.toFixed(0) },
+  { key: 'requests', label: 'All requests', format: (v) => v.toFixed(0) },
 ];
 
 let chromeVersion = 'unknown';
@@ -43,8 +45,8 @@ function parseCli() {
     strict: true,
   });
 
-  if (!values.store) fail('--store <store>.myshopify.com is required (or SHOPIFY_SHOP in the environment).');
   if (!values.label || !/^[\w.-]+$/.test(values.label)) fail('--label is required: letters, digits, ".", "_", "-".');
+  if (!values.store) fail('--store <store>.myshopify.com is required (or SHOPIFY_SHOP in the environment).');
 
   const runs = Number(values.runs);
   if (!Number.isInteger(runs) || runs < 1) fail('--runs must be a positive integer.');
@@ -179,6 +181,7 @@ function extractMetrics(lhr) {
     tbt: audit('total-blocking-time'),
     fcp: audit('first-contentful-paint'),
     weight: audit('total-byte-weight'),
+    themeRequests: countThemeRequests(lhr),
     requests: lhr.audits['network-requests']?.details?.items?.length ?? Number.NaN,
   };
 }

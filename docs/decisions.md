@@ -97,3 +97,13 @@
 
 - Both checks are errors in `theme-check:recommended`, and the CI gate runs at `--fail-level error`. The baseline problems (images without dimensions, scripts without `defer` in the head) are exactly what these checks report.
 - The ignores are limited to the files that carry the problem, so any new offence elsewhere still fails the gate, and a removed ignore shows in the diff next to the fix.
+
+## 8. Requests are counted as theme requests
+
+**Decision.** The request budget applies to "theme requests": the page document, files under `/cdn/shop/` on the store domain, and files under `/s/files/` on `cdn.shopify.com` (hard-coded file URLs). The total number of requests is still recorded as "All requests". The budget values in `perf/budget.md` did not change.
+
+**Reasons.**
+
+- Lighthouse on Dawn stock reports 355–377 requests per page, against a budget of 80. About 160 of them go to `/cdn/shopifycloud/checkout-web/`, about 75 to Shop Pay scripts, and about 30 to Shopify telemetry. These are the same on Dawn stock and on the baseline (160 and 163 checkout requests), so no theme change moves them.
+- Counting only the requests the theme controls gives 45–50 on Dawn stock and 60–70 on the baseline, so the number reflects what the theme adds.
+- Dawn stock and the baseline were measured again with the metric in place, so every row is the median of 5 runs.
