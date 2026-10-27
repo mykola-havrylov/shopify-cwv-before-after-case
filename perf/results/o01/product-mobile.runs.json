@@ -1,0 +1,67 @@
+{
+  "page": "product",
+  "formFactor": "mobile",
+  "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+  "median": {
+    "score": 76,
+    "lcp": 3181.34,
+    "cls": 0.009207927191224433,
+    "tbt": 354,
+    "fcp": 2580.264,
+    "weight": 4025672,
+    "themeRequests": 64,
+    "requests": 393
+  },
+  "runs": [
+    {
+      "score": 56.00000000000001,
+      "lcp": 12085.764,
+      "cls": 0.009207927191224433,
+      "tbt": 320.5,
+      "fcp": 2580.264,
+      "weight": 4028679,
+      "themeRequests": 64,
+      "requests": 401
+    },
+    {
+      "score": 77,
+      "lcp": 3029.959,
+      "cls": 0.009207927191224433,
+      "tbt": 354.5,
+      "fcp": 2429.959,
+      "weight": 4025672,
+      "themeRequests": 64,
+      "requests": 393
+    },
+    {
+      "score": 76,
+      "lcp": 3184.65,
+      "cls": 0.009207927191224433,
+      "tbt": 357,
+      "fcp": 2584.65,
+      "weight": 4026409,
+      "themeRequests": 64,
+      "requests": 396
+    },
+    {
+      "score": 76,
+      "lcp": 3179.2799999999997,
+      "cls": 0.009207927191224433,
+      "tbt": 323.4999999999991,
+      "fcp": 2579.2799999999997,
+      "weight": 3999036,
+      "themeRequests": 64,
+      "requests": 392
+    },
+    {
+      "score": 76,
+      "lcp": 3181.34,
+      "cls": 0.009207927191224433,
+      "tbt": 354,
+      "fcp": 2581.34,
+      "weight": 3998122,
+      "themeRequests": 64,
+      "requests": 390
+    }
+  ]
+}

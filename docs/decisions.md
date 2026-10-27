@@ -107,3 +107,18 @@
 - Lighthouse on Dawn stock reports 355–377 requests per page, against a budget of 80. About 160 of them go to `/cdn/shopifycloud/checkout-web/`, about 75 to Shop Pay scripts, and about 30 to Shopify telemetry. These are the same on Dawn stock and on the baseline (160 and 163 checkout requests), so no theme change moves them.
 - Counting only the requests the theme controls gives 45–50 on Dawn stock and 60–70 on the baseline, so the number reflects what the theme adds.
 - Dawn stock and the baseline were measured again with the metric in place, so every row is the median of 5 runs.
+
+## 9. Theme scripts deferred, vendor-style scripts loaded after load or on interaction
+
+**Decision.** The layout loads jQuery, the reviews widget, the carousel and the interaction handlers with `defer`. The analytics-style and tag-manager-style scripts are added by a small inline loader on the first `pointerdown`, `keydown`, `scroll` or `touchstart`, or after the `load` event through `requestIdleCallback`, whichever comes first. No classic script without `defer` or `async` is left in the layout, and `ParserBlockingScript` is no longer ignored in `.theme-check.yml`.
+
+**Reasons.**
+
+- Shopify recommends `defer` for theme scripts, which keeps the parser and the preload scanner running, and loading analytics and tracking after `DOMContentLoaded` or on interaction.
+- Loading the vendor-style scripts after `load` keeps them on every page view: they are deferred, not removed, so their events are still recorded for visitors who do not interact.
+- A/B measurement, 5 runs, published theme before and development theme after, same session: mobile FCP on home fell from 3.43 s to 1.87 s and product LCP from 12.93 s to 3.18 s in 4 of 5 runs (one run stayed at 12.09 s). Mobile TBT rose from 134 to 351 ms on home and from 48 to 354 ms on product, because the two vendor-style scripts now run after first paint, inside the window that TBT counts, instead of before it. Home LCP, score and weight are `within run-to-run variance`. Results: `perf/results/o01-control/` and `perf/results/o01/`.
+
+**Sources (checked 2026-10-26).**
+
+- Use defer and async on non-critical scripts: https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-scripts
+- Defer render-blocking CSS and JavaScript (analytics and tracking row): https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-non-critical-resources
