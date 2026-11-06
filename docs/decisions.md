@@ -140,3 +140,13 @@
 - Serve correctly sized images with srcset and sizes: https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-responsive-images
 - `image_tag`: https://shopify.dev/docs/api/liquid/filters/image_tag
 - `image_picker` setting: https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings
+
+## 11. Theme Check runs the pinned Shopify CLI directly in CI
+
+**Decision.** The CI job runs `npx --yes @shopify/cli@5.0.1 theme check --fail-level error` instead of the `shopify/theme-check-action` GitHub Action.
+
+**Reasons.**
+
+- The action installs the latest `@shopify/cli` on every run (`npm install --no-package-lock --no-save @shopify/cli`) and then reads the JSON report of `theme check` as a list. Shopify CLI 5.0.0 changed that report to an object (`valid`, `issues`, `errorCount`, `warningCount`, `infoCount`), so the action fails with `e.filter is not a function` before it reports anything, regardless of the theme.
+- Pinning the CLI version makes the check repeatable: the same commit gives the same result on every run until the version is changed on purpose. On 5.0.1 the check gives the same result as on 4.9.4: 0 errors and 21 warnings.
+- The check keeps its exit code, so `--fail-level error` still fails the job; the inline annotations on the pull request that the action created are no longer produced.
