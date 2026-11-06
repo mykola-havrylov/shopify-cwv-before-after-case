@@ -1,4 +1,4 @@
-/* Local stand-in for a reviews app: renders star ratings after a simulated API round trip. */
+/* Local stand-in for a reviews app: fills the reserved rating slots after a simulated API round trip. */
 (function () {
   const RESPONSE_DELAY_MS = 1200;
 
@@ -8,30 +8,21 @@
     return { stars: 3.5 + (hash % 16) / 10, count: 12 + (hash % 180) };
   }
 
-  function build(handle, className) {
+  function fill(slot, handle) {
     const { stars, count } = ratingFor(handle);
-    const element = document.createElement('div');
-    element.className = className;
-    element.setAttribute('role', 'img');
-    element.setAttribute('aria-label', `${stars.toFixed(1)} out of 5 stars, ${count} reviews`);
-    element.innerHTML = `<span class="reviews-widget__stars" style="--rating: ${stars.toFixed(1)}"></span><span class="reviews-widget__count">${stars.toFixed(1)} (${count} reviews)</span>`;
-    return element;
+    slot.setAttribute('role', 'img');
+    slot.setAttribute('aria-label', `${stars.toFixed(1)} out of 5 stars, ${count} reviews`);
+    slot.innerHTML = `<span class="reviews-widget__stars" style="--rating: ${stars.toFixed(1)}"></span><span class="reviews-widget__count">${stars.toFixed(1)} (${count} reviews)</span>`;
   }
 
   function mount() {
-    document.querySelectorAll('.card-wrapper .card__information').forEach((information) => {
-      const link = information.querySelector('a[href*="/products/"]');
-      if (!link || information.querySelector('.reviews-widget')) return;
-      information.appendChild(build(link.getAttribute('href'), 'reviews-widget reviews-widget--card'));
+    document.querySelectorAll('.card__information [data-reviews-slot]').forEach((slot) => {
+      const link = slot.closest('.card__information').querySelector('a[href*="/products/"]');
+      if (link) fill(slot, link.getAttribute('href'));
     });
 
-    const title = document.querySelector('.product__info-container .product__title');
-    if (title && !document.querySelector('.reviews-widget--product')) {
-      title.insertAdjacentElement(
-        'afterend',
-        build(window.location.pathname, 'reviews-widget reviews-widget--product'),
-      );
-    }
+    const productSlot = document.querySelector('.reviews-widget--product[data-reviews-slot]');
+    if (productSlot) fill(productSlot, window.location.pathname);
   }
 
   document.addEventListener('DOMContentLoaded', () => {

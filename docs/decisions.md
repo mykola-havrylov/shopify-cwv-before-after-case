@@ -184,3 +184,20 @@
 - CSS scroll snap: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap
 - Use defer and async on non-critical scripts: https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-scripts
 - WCAG 2.2, Success Criterion 2.2.2 Pause, Stop, Hide: https://www.w3.org/TR/WCAG22/#pause-stop-hide
+
+## 14. Layout space reserved for the hero height and the ratings
+
+**Decision.** An inline script at the start of the hero section sets `--header-height` from the rendered header before the hero is parsed. The product title block and the product card render an empty rating slot (`.reviews-widget`, `min-height: 1lh`), and the reviews stand-in fills these slots instead of inserting new elements. The 1.2 s simulated API delay is unchanged.
+
+**Reasons.**
+
+- The hero height is `100svh` minus `--header-height`. Dawn sets that property in the header's `{% javascript %}` block, which Shopify serves as a separate deferred file, so the first frame painted the hero at the full viewport height and the caption, link and arrows moved once the property arrived (823 px to 758 px on mobile). The header markup is already in the DOM when the hero section starts, so reading its height there costs one layout and gives the final value before the first paint.
+- The reviews stand-in inserted a block after the product title and at the end of each card 1.2 s after `DOMContentLoaded`, which moved the price, the variant picker and the buy buttons on the product page and the card grid on collections. A slot of the final height keeps the page still while the content arrives, as an app block of a reviews app does. Dawn hides every empty `div` (`div:empty { display: none }` in `base.css`), so the slot overrides it with `.reviews-widget:empty`.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. CLS fell to 0 on home (from 0.013 on mobile and 0.010 on desktop) and on the product page (from 0.009 on mobile and 0.005 on desktop), in every run. LCP, TBT, score and weight are `within run-to-run variance`; the product page on mobile keeps its two states (about 2.9 s and about 8.4 s). Results: `perf/results/o05-control/` and `perf/results/o05/`.
+- The collection page is not part of the incremental series. A `layout-shift` observer on the development theme, 4× CPU slowdown, records no shift there after the change, against 0.0091 on mobile and 0.0035 on desktop before.
+
+**Sources (checked 2026-11-06).**
+
+- Cumulative Layout Shift: https://web.dev/articles/cls
+- Section assets, `{% javascript %}` loaded with `defer`: https://shopify.dev/docs/storefronts/themes/architecture/sections/section-assets
+- `lh` unit: https://developer.mozilla.org/en-US/docs/Web/CSS/length#lh
