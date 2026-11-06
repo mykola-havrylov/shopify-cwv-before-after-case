@@ -2,7 +2,43 @@
   "sections": {
     "hero_carousel": {
       "type": "hero-carousel",
-      "settings": {}
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/slide-1-desktop.jpg",
+            "mobile_image": "shopify://shop_images/slide-1-mobile.jpg",
+            "heading": "Pitch above the clouds",
+            "button_label": "Shop tents"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/slide-2-desktop.jpg",
+            "mobile_image": "shopify://shop_images/slide-2-mobile.jpg",
+            "heading": "Carry less, go further",
+            "button_label": "Shop backpacks"
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "desktop_image": "shopify://shop_images/slide-3-desktop.jpg",
+            "mobile_image": "shopify://shop_images/slide-3-mobile.jpg",
+            "heading": "Camp where the view is",
+            "button_label": "Shop all gear"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
+      "settings": {
+        "label": "Featured collections"
+      }
     },
     "promo_video": {
       "type": "promo-video",

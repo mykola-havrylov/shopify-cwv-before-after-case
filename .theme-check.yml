@@ -1,7 +1,1 @@
 extends: theme-check:recommended
-
-ImgWidthAndHeight:
-  ignore:
-    - sections/hero-carousel.liquid
-    - snippets/card-product.liquid
-    - snippets/product-media.liquid
