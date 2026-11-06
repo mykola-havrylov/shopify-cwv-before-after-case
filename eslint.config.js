@@ -42,7 +42,7 @@ const dawnScripts = [
 
 export default [
   {
-    ignores: ['node_modules/', 'perf/results/', 'agents-doc/', 'assets/jquery-3.7.1.min.js'],
+    ignores: ['node_modules/', 'perf/results/', 'agents-doc/'],
   },
   js.configs.recommended,
   {

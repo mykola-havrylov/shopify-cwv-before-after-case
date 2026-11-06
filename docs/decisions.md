@@ -166,3 +166,21 @@
 
 - Mark the LCP image with `fetchpriority="high"`: https://shopify.dev/docs/storefronts/themes/best-practices/performance/set-fetchpriority-high-on-lcp-image
 - `image_tag`: https://shopify.dev/docs/api/liquid/filters/image_tag
+
+## 13. Hero carousel on CSS scroll snap, jQuery removed
+
+**Decision.** The hero slides sit in a horizontal track with `scroll-snap-type: x mandatory`; swiping, the arrows and the dots scroll it. A vanilla script of about 30 lines, loaded with `defer` from the section and so only on pages that render it, wires the arrows and dots and marks the dot of the visible slide with `aria-current`. The carousel is visible from the first paint. Slides change on user action only; autoplay is removed. jQuery, its preload and its script tag are removed from the layout, and the file is deleted from `main`.
+
+**Reasons.**
+
+- The jQuery carousel kept the whole hero at `visibility: hidden` until the plugin had run after jQuery, so the LCP image was downloaded early but painted only after two deferred scripts. In the control run below, element render delay is 513 ms of the observed home mobile LCP; with the change it is 29 ms.
+- jQuery was used by the carousel only. Native scroll snap gives swipe and snapping without a library; the script only handles clicks and the current dot.
+- Without autoplay the carousel needs no pause control for WCAG 2.2.2 and runs no timer on the main thread.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. Home mobile LCP fell from 10.41 s to 3.10 s (median; 9.89–10.61 s before, 3.03–3.18 s in 4 of 5 runs after, one run at 9.18 s) and the score from 55 to 83. Home desktop LCP fell from 2.21 s to 0.81 s and the score from 79 to 98. Theme requests fell by one on home and by two on the product page. TBT, weight and the product page metrics are `within run-to-run variance`; the product page on mobile keeps its two states (about 2.8 s and about 8.3 s) in both series. Results: `perf/results/o04-control/` and `perf/results/o04/`.
+- Home CLS rose from 0 to 0.013 on mobile and 0.010 on desktop, in every run. The shifted element is the slide caption: the hero height uses `--header-height`, which the Dawn header sets from JavaScript after the first paint, so the visible hero shrinks once by the header height. The same shift happened before, while the hero was still hidden, and was not counted. It is left for the change that reserves layout space.
+
+**Sources (checked 2026-11-06).**
+
+- CSS scroll snap: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap
+- Use defer and async on non-critical scripts: https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-scripts
+- WCAG 2.2, Success Criterion 2.2.2 Pause, Stop, Hide: https://www.w3.org/TR/WCAG22/#pause-stop-hide
