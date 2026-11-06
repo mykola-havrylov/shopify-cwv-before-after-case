@@ -1,6 +1,6 @@
 # Third-party notices
 
-The theme ships no npm code; the one vendored library, jQuery, is listed in [`docs/third-party-assets.md`](docs/third-party-assets.md). The packages below are development dependencies used for formatting, linting and Lighthouse measurements; they are installed locally and in CI from `package-lock.json` and are not distributed with the theme.
+The theme ships no npm code and, on `main`, no vendored library; jQuery, which the `baseline` branch vendors, is listed in [`docs/third-party-assets.md`](docs/third-party-assets.md). The packages below are development dependencies used for formatting, linting and Lighthouse measurements; they are installed locally and in CI from `package-lock.json` and are not distributed with the theme.
 
 ## Direct dependencies
 

@@ -26,14 +26,15 @@ Not imported: Dawn's `README.md`, `release-notes.md`, `.github/`, `.gitignore`. 
 
 ## jQuery
 
-| Field     | Value                                                                              |
-| --------- | ---------------------------------------------------------------------------------- |
-| Source    | https://code.jquery.com/jquery-3.7.1.min.js                                        |
-| Version   | 3.7.1                                                                              |
-| SHA-256   | `fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a`                 |
-| License   | MIT, https://jquery.org/license/                                                   |
-| Copyright | OpenJS Foundation and other contributors                                           |
-| Added     | 2026-10-21, as `assets/jquery-3.7.1.min.js`, unmodified; used by the hero carousel |
+| Field     | Value                                                                                                     |
+| --------- | --------------------------------------------------------------------------------------------------------- |
+| Source    | https://code.jquery.com/jquery-3.7.1.min.js                                                               |
+| Version   | 3.7.1                                                                                                     |
+| SHA-256   | `fc9a93dd241f6b045cbff0481cf4e1901becd0e12fb45166a8f17f95823f0b1a`                                        |
+| License   | MIT, https://jquery.org/license/                                                                          |
+| Copyright | OpenJS Foundation and other contributors                                                                  |
+| Added     | 2026-10-21, as `assets/jquery-3.7.1.min.js`, unmodified; used by the hero carousel                        |
+| Removed   | 2026-11-06, from `main`, when the carousel moved to CSS scroll snap; the `baseline` branch still ships it |
 
 ## Video
 

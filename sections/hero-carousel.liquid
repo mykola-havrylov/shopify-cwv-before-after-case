@@ -1,58 +1,76 @@
-<section class="hero-carousel" data-hero-carousel aria-roledescription="carousel" aria-label="{{ section.settings.label | escape }}">
-  {%- for block in section.blocks -%}
-    {%- liquid
-      assign desktop_image = block.settings.desktop_image
-      assign mobile_image = block.settings.mobile_image | default: desktop_image
-      assign slide_link = block.settings.link | default: routes.all_products_collection_url
-      if forloop.first
-        assign loading = 'eager'
-        assign fetch_priority = 'high'
-      else
-        assign loading = 'lazy'
-        assign fetch_priority = 'auto'
-      endif
-    -%}
-    <div class="hero-carousel__slide" {{ block.shopify_attributes }}>
-      {%- if desktop_image != blank -%}
-        <picture>
-          {%- if mobile_image != blank -%}
-            <source
-              media="(max-width: 749px)"
-              srcset="
-                {{ mobile_image | image_url: width: 750 }} 750w,
-                {{ mobile_image | image_url: width: 1125 }} 1125w,
-                {{ mobile_image | image_url: width: 1500 }} 1500w
-              "
-              sizes="100vw"
-              width="{{ mobile_image.width }}"
-              height="{{ mobile_image.height }}"
-            >
-          {%- endif -%}
-          {{
-            desktop_image
-            | image_url: width: 1920
-            | image_tag:
-              class: 'hero-carousel__image',
-              widths: '750, 1100, 1500, 1920, 2400, 3000',
-              sizes: '100vw',
-              loading: loading,
-              fetchpriority: fetch_priority,
-              alt: desktop_image.alt
-          }}
-        </picture>
-      {%- endif -%}
-      <div class="hero-carousel__caption">
-        <h2 class="hero-carousel__heading">{{ block.settings.heading }}</h2>
-        <a class="hero-carousel__link" href="{{ slide_link }}">{{ block.settings.button_label }}</a>
-      </div>
-    </div>
-  {%- endfor -%}
+<script src="{{ 'hero-carousel.js' | asset_url }}" defer="defer"></script>
 
-  <button class="hero-carousel__arrow hero-carousel__arrow--prev" type="button" aria-label="{{ 'general.slider.previous_slide' | t }}">&lsaquo;</button>
-  <button class="hero-carousel__arrow hero-carousel__arrow--next" type="button" aria-label="{{ 'general.slider.next_slide' | t }}">&rsaquo;</button>
+<section class="hero-carousel" data-hero-carousel aria-roledescription="carousel" aria-label="{{ section.settings.label | escape }}">
+  <div class="hero-carousel__track" id="HeroCarouselTrack-{{ section.id }}">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign desktop_image = block.settings.desktop_image
+        assign mobile_image = block.settings.mobile_image | default: desktop_image
+        assign slide_link = block.settings.link | default: routes.all_products_collection_url
+        if forloop.first
+          assign loading = 'eager'
+          assign fetch_priority = 'high'
+        else
+          assign loading = 'lazy'
+          assign fetch_priority = 'auto'
+        endif
+      -%}
+      <div
+        class="hero-carousel__slide"
+        role="group"
+        aria-roledescription="slide"
+        aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
+        {{ block.shopify_attributes }}
+      >
+        {%- if desktop_image != blank -%}
+          <picture>
+            {%- if mobile_image != blank -%}
+              <source
+                media="(max-width: 749px)"
+                srcset="
+                  {{ mobile_image | image_url: width: 750 }} 750w,
+                  {{ mobile_image | image_url: width: 1125 }} 1125w,
+                  {{ mobile_image | image_url: width: 1500 }} 1500w
+                "
+                sizes="100vw"
+                width="{{ mobile_image.width }}"
+                height="{{ mobile_image.height }}"
+              >
+            {%- endif -%}
+            {{
+              desktop_image
+              | image_url: width: 1920
+              | image_tag:
+                class: 'hero-carousel__image',
+                widths: '750, 1100, 1500, 1920, 2400, 3000',
+                sizes: '100vw',
+                loading: loading,
+                fetchpriority: fetch_priority,
+                alt: desktop_image.alt
+            }}
+          </picture>
+        {%- endif -%}
+        <div class="hero-carousel__caption">
+          <h2 class="hero-carousel__heading">{{ block.settings.heading }}</h2>
+          <a class="hero-carousel__link" href="{{ slide_link }}">{{ block.settings.button_label }}</a>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <button class="hero-carousel__arrow hero-carousel__arrow--prev" type="button" aria-controls="HeroCarouselTrack-{{ section.id }}" aria-label="{{ 'general.slider.previous_slide' | t }}">&lsaquo;</button>
+  <button class="hero-carousel__arrow hero-carousel__arrow--next" type="button" aria-controls="HeroCarouselTrack-{{ section.id }}" aria-label="{{ 'general.slider.next_slide' | t }}">&rsaquo;</button>
   <div class="hero-carousel__dots">
     {%- for block in section.blocks -%}
-      <button class="hero-carousel__dot" type="button" aria-label="{{ forloop.index }}"></button>
+      <button
+        class="hero-carousel__dot"
+        type="button"
+        aria-controls="HeroCarouselTrack-{{ section.id }}"
+        aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
+        {% if forloop.first %}
+          aria-current="true"
+        {% endif %}
+      ></button>
     {%- endfor -%}
   </div>
 </section>

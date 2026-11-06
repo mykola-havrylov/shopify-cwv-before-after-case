@@ -1,27 +1,31 @@
 /* Own storefront styles: hero carousel, promo video and reviews widget. Loaded on every page. */
 .hero-carousel {
   position: relative;
-  overflow: hidden;
   height: calc(100vh - var(--header-height, 0px));
   height: calc(100svh - var(--header-height, 0px));
   min-height: 32rem;
-  visibility: hidden;
   background: #1c2a24;
 }
 
-.hero-carousel.is-ready {
-  visibility: visible;
+.hero-carousel__track {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.hero-carousel__track::-webkit-scrollbar {
+  display: none;
 }
 
 .hero-carousel__slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-
-.hero-carousel__slide.is-active {
-  opacity: 1;
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .hero-carousel__image {
@@ -105,8 +109,14 @@
   cursor: pointer;
 }
 
-.hero-carousel__dot.is-active {
+.hero-carousel__dot[aria-current='true'] {
   background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-carousel__track {
+    scroll-behavior: auto;
+  }
 }
 
 .promo-video {
