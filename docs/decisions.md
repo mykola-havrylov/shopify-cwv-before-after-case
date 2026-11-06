@@ -150,3 +150,19 @@
 - The action installs the latest `@shopify/cli` on every run (`npm install --no-package-lock --no-save @shopify/cli`) and then reads the JSON report of `theme check` as a list. Shopify CLI 5.0.0 changed that report to an object (`valid`, `issues`, `errorCount`, `warningCount`, `infoCount`), so the action fails with `e.filter is not a function` before it reports anything, regardless of the theme.
 - Pinning the CLI version makes the check repeatable: the same commit gives the same result on every run until the version is changed on purpose. On 5.0.1 the check gives the same result as on 4.9.4: 0 errors and 21 warnings.
 - The check keeps its exit code, so `--fail-level error` still fails the job; the inline annotations on the pull request that the action created are no longer produced.
+
+## 12. `fetchpriority="high"` on the verified LCP image
+
+**Decision.** The first hero slide image on the home page and the first product image on the product page carry `fetchpriority="high"`; every other image keeps the browser default. The product snippet sets it only when the image is first and not lazy-loaded, so each page has exactly one.
+
+**Reasons.**
+
+- The LCP element was taken from the Lighthouse results of decision 10 (`lcp-discovery-insight`), not assumed: the first slide image (`img.hero-carousel__image`) on home, mobile and desktop, and the first gallery image (`img.image-magnify-lightbox`) on the product page. Both were discoverable in the HTML and eagerly loaded; neither had a priority hint.
+- Shopify recommends `fetchpriority="high"` on the LCP image only, one per page, never together with `loading="lazy"`.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. Lighthouse now reports the hint as applied and the LCP request at `High` priority instead of `Medium`. LCP, score, TBT, CLS and weight on home and product, mobile and desktop, are `within run-to-run variance`: home mobile LCP 10.36–11.05 s before and 10.35–11.30 s after; the product page on mobile keeps two states (about 3 s and about 8.6 s) in both series. Results: `perf/results/o03-control/` and `perf/results/o03/`.
+- The LCP image already started early, and most of its LCP time is element render delay (about 1.9 to 2.1 s observed on home mobile). The six slide preloads in the layout, which also load on the product page, are left for the resource hints change.
+
+**Sources (checked 2026-11-06).**
+
+- Mark the LCP image with `fetchpriority="high"`: https://shopify.dev/docs/storefronts/themes/best-practices/performance/set-fetchpriority-high-on-lcp-image
+- `image_tag`: https://shopify.dev/docs/api/liquid/filters/image_tag

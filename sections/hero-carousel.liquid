@@ -6,8 +6,10 @@
       assign slide_link = block.settings.link | default: routes.all_products_collection_url
       if forloop.first
         assign loading = 'eager'
+        assign fetch_priority = 'high'
       else
         assign loading = 'lazy'
+        assign fetch_priority = 'auto'
       endif
     -%}
     <div class="hero-carousel__slide" {{ block.shopify_attributes }}>
@@ -34,6 +36,7 @@
               widths: '750, 1100, 1500, 1920, 2400, 3000',
               sizes: '100vw',
               loading: loading,
+              fetchpriority: fetch_priority,
               alt: desktop_image.alt
           }}
         </picture>
