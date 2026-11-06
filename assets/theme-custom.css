@@ -153,10 +153,15 @@
 
 .reviews-widget {
   display: flex;
+  min-height: 1lh;
   align-items: center;
   gap: 0.8rem;
   margin: 0.8rem 0;
   font-size: 1.3rem;
+}
+
+.reviews-widget:empty {
+  display: flex;
 }
 
 .reviews-widget--product {

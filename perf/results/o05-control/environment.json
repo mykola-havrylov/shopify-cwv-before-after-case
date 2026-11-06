@@ -1,0 +1,120 @@
+{
+  "measurements": {
+    "home-mobile": {
+      "date": "2026-11-06T16:13:26.296Z",
+      "url": "https://cwv-demo.myshopify.com/?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "mobile",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "benchmarkIndex": 3418
+    },
+    "product-mobile": {
+      "date": "2026-11-06T16:18:03.153Z",
+      "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "mobile",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "benchmarkIndex": 3587
+    },
+    "home-desktop": {
+      "date": "2026-11-06T16:32:00.144Z",
+      "url": "https://cwv-demo.myshopify.com/?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "desktop",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "benchmarkIndex": 3428
+    },
+    "product-desktop": {
+      "date": "2026-11-06T16:36:38.603Z",
+      "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "desktop",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "benchmarkIndex": 3602
+    }
+  },
+  "lighthouse": "13.5.0",
+  "chrome": "157.0.8103.38",
+  "os": "Linux 7.3.0-10-generic x64",
+  "node": "v24.22.0"
+}
