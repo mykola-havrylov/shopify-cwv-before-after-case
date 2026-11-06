@@ -18,12 +18,10 @@ Not imported: Dawn's `README.md`, `release-notes.md`, `.github/`, `.gitignore`. 
 
 ### Changed Dawn files
 
-| File                            | Change                                                                                                                        |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `layout/theme.liquid`           | Head scripts, resource hints and global stylesheets added; `font_display: 'swap'` removed from the five `font_face` calls     |
-| `snippets/card-product.liquid`  | Primary card image rendered as a plain `<img>` of the original file, without `srcset`, `sizes`, dimensions or lazy loading    |
-| `snippets/product-media.liquid` | Product gallery image rendered as a plain `<img>` of the original file, without `srcset`, `sizes`, dimensions or lazy loading |
-| `templates/index.json`          | Hero carousel and promo video sections added; the image banner section removed                                                |
+| File                   | Change                                                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `layout/theme.liquid`  | Head scripts, resource hints and global stylesheets added; `font_display: 'swap'` removed from the five `font_face` calls |
+| `templates/index.json` | Hero carousel and promo video sections added; the image banner section removed                                            |
 
 ## jQuery
 

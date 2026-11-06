@@ -123,6 +123,24 @@
 - Use defer and async on non-critical scripts: https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-scripts
 - Defer render-blocking CSS and JavaScript (analytics and tracking row): https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-non-critical-resources
 
+## 10. Responsive images through `image_picker`, `image_url` and `image_tag`
+
+**Decision.** The carousel slides are theme blocks with `image_picker` settings. Each slide renders a `<picture>` with a mobile `<source>` (`srcset` of 750, 1125 and 1500 px, `sizes="100vw"`) and a desktop `image_url | image_tag` with `widths`, `sizes`, `width`, `height` and the alt text of the file; the first slide is `eager`, the others `lazy`. The product card and the product gallery snippets are back to Dawn `v16.0.0`. The CSS `background-image` with an absolute URL behind the promo video is removed, because the poster covers it. The `ImgWidthAndHeight` ignores are removed from `.theme-check.yml`, which now only extends `theme-check:recommended`.
+
+**Reasons.**
+
+- `image_tag` generates a `srcset` and the `width` and `height` attributes, and Shopify recommends a `sizes` value that matches the rendered width so the browser does not fetch the largest candidate.
+- `image_picker` returns an image object, keeps the focal point and alt text of the file, and removes the hard-coded CDN URLs from the section. Template values use `shopify://shop_images/<file name>`.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. Page weight fell from 13024 to 11405 KiB on home and from 3844 to 3120 KiB on the product page (mobile). Home LCP fell from 16.48 s to 10.70 s on mobile and from 3.37 s to 1.73 s on desktop. Product mobile LCP is 3.18 s in all 5 runs, against 12.62 s in 4 of 5 control runs. TBT, CLS and the scores on mobile home and desktop product are `within run-to-run variance`. Results: `perf/results/o02-control/` and `perf/results/o02/`.
+- The six slide preloads in the layout are unchanged, so home still downloads the originals of the slides through them next to the new `srcset` candidates; the gain on home is therefore smaller than the weight of the images suggests.
+- The control of this series runs the code of decision 9 and shows the product page LCP in two states, 12.6 s in 4 of 5 runs and 2.9 s in one. The gain reported for decision 9 on that page (4 of 5 runs at about 3.1 s) is therefore not a stable result of that change.
+
+**Sources (checked 2026-10-27).**
+
+- Serve correctly sized images with srcset and sizes: https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-responsive-images
+- `image_tag`: https://shopify.dev/docs/api/liquid/filters/image_tag
+- `image_picker` setting: https://shopify.dev/docs/storefronts/themes/architecture/settings/input-settings
+
 ## 11. Theme Check runs the pinned Shopify CLI directly in CI
 
 **Decision.** The CI job runs `npx --yes @shopify/cli@5.0.1 theme check --fail-level error` instead of the `shopify/theme-check-action` GitHub Action.
