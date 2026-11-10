@@ -16,6 +16,8 @@ templates/*
 !assets/interaction-handlers.js
 !assets/promo-video.js
 !assets/reviews-widget.js
+!assets/section-hero-carousel.css
+!assets/section-promo-video.css
 !assets/theme-custom.css
 !assets/vendor-analytics.js
 !assets/vendor-tag-manager.js

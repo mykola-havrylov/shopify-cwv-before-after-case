@@ -234,3 +234,18 @@
 
 - `font_face` filter, `font_display` parameter: https://shopify.dev/docs/api/liquid/filters/font_face
 - `font-display`: https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display
+
+## 17. Stylesheets scoped to the sections that use them
+
+**Decision.** The layout no longer loads eight Dawn stylesheets on every page (`section-main-product`, `component-facets`, `component-card`, `component-slider`, `component-image-with-text`, `quick-order-list`, `mask-blobs`, `section-image-banner`); the Dawn sections that need them already load them. The hero carousel and promo video styles moved from the global `theme-custom.css` to `section-hero-carousel.css` and `section-promo-video.css`, loaded by their sections. `theme-custom.css` keeps only the reviews widget styles, which product cards and the product page use on most templates.
+
+**Reasons.**
+
+- Every stylesheet in `<head>` blocks the first paint until it is downloaded, including the ones a page does not use: the product page loaded the facets and image banner styles, the home page the main product styles. Dawn loads section styles from the section file, so a stylesheet arrives only with the markup it styles.
+- Stylesheet links per page fell from 33 to 27 on home, 38 to 30 on the product page and 37 to 29 on a collection, and none of the removed ones was in `<head>` any more. Screenshots of the first viewport of the three pages, mobile and desktop, are pixel-identical before and after.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. Theme requests fell from 68 to 65 on home and from 60 to 55 on the product page. On home mobile all five runs after the change landed in the fast state, LCP 3.04–3.40 s and FCP 1.86–1.96 s, against 3.64–4.70 s and 1.95–2.09 s in the fast runs before, plus two slow runs near 9.5 s; the median fell from 4.70 to 3.10 s and the score from 68 to 81. Desktop home LCP went from 0.84–0.95 s to 0.77–0.79 s. The product page metrics, TBT, CLS and weight are `within run-to-run variance`; the slow mobile state appeared in one of ten runs after the change and in four of ten before, which five-run series cannot separate from chance. Results: `perf/results/o08-control/` and `perf/results/o08/`.
+
+**Sources (checked 2026-11-10).**
+
+- Defer render-blocking CSS and JavaScript: https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-non-critical-resources
+- Section assets: https://shopify.dev/docs/storefronts/themes/architecture/sections/section-assets

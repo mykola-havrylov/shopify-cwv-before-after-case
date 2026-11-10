@@ -1,0 +1,45 @@
+/* Promo video section: video, caption and pause button. */
+.promo-video {
+  position: relative;
+  overflow: hidden;
+  background-color: #1c2a24;
+}
+
+.promo-video__media {
+  display: block;
+  width: 100%;
+  height: calc(100vh - var(--header-height, 0px));
+  height: calc(100svh - var(--header-height, 0px));
+  min-height: 32rem;
+  object-fit: cover;
+}
+
+.promo-video__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3rem;
+  padding: 0 2rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+
+.promo-video__heading {
+  margin: 0;
+  color: #fff;
+  font-size: 2.8rem;
+}
+
+.promo-video__toggle {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.6rem;
+  padding: 0.8rem 1.6rem;
+  border: 1px solid #fff;
+  border-radius: 2rem;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
