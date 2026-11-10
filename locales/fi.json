@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "Käytä vähemmän suodattimia tai <a class=\"{{ class }}\" href=\"{{ link }}\">poista kaikki</a>"
     },
     "video": {
-      "load_video": "Lataa video: {{ description }}"
+      "load_video": "Lataa video: {{ description }}",
+      "pause_video": "Keskeytä video"
     },
     "slideshow": {
       "load_slide": "Lataa dia",

@@ -340,7 +340,8 @@
       "use_fewer_filters_html": "Folosește mai puține filtre sau <a class=\"{{ class }}\" href=\"{{ link }}\">elimină-le pe toate</a>"
     },
     "video": {
-      "load_video": "Încarcă clipul video: {{ description }}"
+      "load_video": "Încarcă clipul video: {{ description }}",
+      "pause_video": "Întrerupe clipul video"
     },
     "slideshow": {
       "load_slide": "Încarcă diapozitivul",

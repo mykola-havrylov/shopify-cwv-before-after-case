@@ -340,7 +340,8 @@
       "use_fewer_filters_html": "Upotrijebi manje filtara ili <a class=\"{{ class }}\" href=\"{{ link }}\">ukloni sve</a>"
     },
     "video": {
-      "load_video": "Učitaj videozapis: {{ description }}"
+      "load_video": "Učitaj videozapis: {{ description }}",
+      "pause_video": "Pauziraj videozapis"
     },
     "slideshow": {
       "load_slide": "Učitaj slajd",

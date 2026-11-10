@@ -350,7 +350,8 @@
       "use_fewer_filters_html": "Uporabite manj filtrov ali <a class=\"{{ class }}\" href=\"{{ link }}\">odstranite vse</a>"
     },
     "video": {
-      "load_video": "Naloži videoposnetek: {{ description }}"
+      "load_video": "Naloži videoposnetek: {{ description }}",
+      "pause_video": "Zaustavi videoposnetek"
     },
     "slideshow": {
       "load_slide": "Naloži diapozitiv",

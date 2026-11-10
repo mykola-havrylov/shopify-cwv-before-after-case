@@ -350,7 +350,8 @@
       "use_fewer_filters_html": "Můžete použít méně filtrů nebo <a class=\"{{ class }}\" href=\"{{ link }}\">všechny odebrat</a>"
     },
     "video": {
-      "load_video": "Načíst video: {{ description }}"
+      "load_video": "Načíst video: {{ description }}",
+      "pause_video": "Pozastavit video"
     },
     "slideshow": {
       "load_slide": "Načíst snímek",

@@ -201,3 +201,20 @@
 - Cumulative Layout Shift: https://web.dev/articles/cls
 - Section assets, `{% javascript %}` loaded with `defer`: https://shopify.dev/docs/storefronts/themes/architecture/sections/section-assets
 - `lh` unit: https://developer.mozilla.org/en-US/docs/Web/CSS/length#lh
+
+## 15. Promo video loaded and played only on screen
+
+**Decision.** The promo video has `preload="none"` and no `autoplay`; the poster is shown until it plays. A deferred script from the section starts playback while at least a quarter of the section is on screen and pauses it off screen. A visible button pauses and resumes it, and a pause by the visitor holds when the section scrolls back into view. With `prefers-reduced-motion: reduce` the script does nothing, so only the poster is shown and the video is never requested. The pause label is a new key, `sections.video.pause_video`, in every storefront locale; the play label reuses Dawn's `products.product.media.play_video`.
+
+**Reasons.**
+
+- The section sits below the hero, yet `autoplay` made the browser download the 7.8 MB clip on every home page visit, whether or not the visitor scrolled to it. Lighthouse loaded about 7.7 MB of it in the control runs below.
+- A looping video that starts by itself and plays next to other content needs a way to pause it (WCAG 2.2.2). The button label changes between pause and play, so it carries no `aria-pressed`.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. Home page weight fell from 11264 to 3481 KiB on mobile and from 11970 to 4204 KiB on desktop, and theme requests from 71 to 68; no request for the video is made without scrolling. LCP, TBT, CLS and the scores are `within run-to-run variance`: home mobile LCP was about 3.3 s with one or two runs near 10 s in both series, and the product page, which this change does not touch, keeps its two states. Results: `perf/results/o06-control/` and `perf/results/o06/`.
+- A browser check on the development theme confirmed the behaviour: no video request at the top of the page, playback once the section is on screen, the pause held after scrolling away and back, a pause off screen, and no request with reduced motion.
+
+**Sources (checked 2026-11-06).**
+
+- Lazy load video (preload, poster, IntersectionObserver): https://web.dev/articles/lazy-loading-video
+- `preload` attribute of `<video>`: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload
+- WCAG 2.2, Success Criterion 2.2.2 Pause, Stop, Hide: https://www.w3.org/TR/WCAG22/#pause-stop-hide

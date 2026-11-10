@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "减少使用的筛选条件数量或<a class=\"{{ class }}\" href=\"{{ link }}\">删除所有筛选条件</a>"
     },
     "video": {
-      "load_video": "加载视频：{{ description }}"
+      "load_video": "加载视频：{{ description }}",
+      "pause_video": "暂停视频"
     },
     "slideshow": {
       "load_slide": "加载幻灯片",

@@ -1,0 +1,67 @@
+{
+  "page": "home",
+  "formFactor": "mobile",
+  "url": "https://cwv-demo.myshopify.com/?pb=0",
+  "median": {
+    "score": 78,
+    "lcp": 3412.9370851745607,
+    "cls": 0,
+    "tbt": 318.5,
+    "fcp": 2092.1875,
+    "weight": 11534633,
+    "themeRequests": 71,
+    "requests": 390
+  },
+  "runs": [
+    {
+      "score": 56.00000000000001,
+      "lcp": 9757.410617515563,
+      "cls": 0,
+      "tbt": 315.5,
+      "fcp": 2896.40979258728,
+      "weight": 11535101,
+      "themeRequests": 71,
+      "requests": 390
+    },
+    {
+      "score": 55.00000000000001,
+      "lcp": 10085.933617515562,
+      "cls": 0,
+      "tbt": 318.5,
+      "fcp": 3048.8575,
+      "weight": 11033433,
+      "themeRequests": 71,
+      "requests": 394
+    },
+    {
+      "score": 78,
+      "lcp": 3411.4625851745604,
+      "cls": 0,
+      "tbt": 353,
+      "fcp": 2092.1875,
+      "weight": 11534633,
+      "themeRequests": 71,
+      "requests": 387
+    },
+    {
+      "score": 81,
+      "lcp": 3412.9370851745607,
+      "cls": 0,
+      "tbt": 315.5,
+      "fcp": 1972.686437072754,
+      "weight": 11337728,
+      "themeRequests": 71,
+      "requests": 390
+    },
+    {
+      "score": 83,
+      "lcp": 3253.2599999999998,
+      "cls": 0,
+      "tbt": 349,
+      "fcp": 1228.26,
+      "weight": 11563612,
+      "themeRequests": 71,
+      "requests": 387
+    }
+  ]
+}

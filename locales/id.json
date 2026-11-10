@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "Gunakan lebih sedikit filter atau <a class=\"{{ class }}\" href=\"{{ link }}\">hapus semua</a>"
     },
     "video": {
-      "load_video": "Muat video: {{ description }}"
+      "load_video": "Muat video: {{ description }}",
+      "pause_video": "Jeda video"
     },
     "slideshow": {
       "load_slide": "Muat slide",

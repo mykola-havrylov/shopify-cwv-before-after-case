@@ -1,16 +1,27 @@
-<section class="promo-video">
+<script src="{{ 'promo-video.js' | asset_url }}" defer="defer"></script>
+
+<section
+  class="promo-video"
+  data-promo-video
+  data-label-pause="{{ 'sections.video.pause_video' | t | escape }}"
+  data-label-play="{{ 'products.product.media.play_video' | t | escape }}"
+>
   <video
     class="promo-video__media"
     src="{{ 'hero-video.mp4' | asset_url }}"
     poster="{{ 'hero-poster.jpg' | asset_url }}"
-    autoplay
+    preload="none"
     muted
     loop
     playsinline
+    aria-hidden="true"
   ></video>
   <div class="promo-video__caption">
     <h2 class="promo-video__heading">{{ section.settings.heading }}</h2>
   </div>
+  <button class="promo-video__toggle" type="button" hidden>
+    {{ 'sections.video.pause_video' | t }}
+  </button>
 </section>
 
 {% schema %}

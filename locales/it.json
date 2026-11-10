@@ -340,7 +340,8 @@
       "use_fewer_filters_html": "Utilizza meno filtri o <a class=\"{{ class }}\" href=\"{{ link }}\">rimuovi tutto</a>"
     },
     "video": {
-      "load_video": "Carica il video: {{ description }}"
+      "load_video": "Carica il video: {{ description }}",
+      "pause_video": "Metti in pausa il video"
     },
     "slideshow": {
       "load_slide": "Carica slide",

@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "絞り込みの数を減らす、または<a class=\"{{ class }}\" href=\"{{ link }}\">すべて削除する</a>"
     },
     "video": {
-      "load_video": "動画を読み込む: {{ description }}"
+      "load_video": "動画を読み込む: {{ description }}",
+      "pause_video": "動画を一時停止する"
     },
     "slideshow": {
       "load_slide": "スライドを読み込む",
