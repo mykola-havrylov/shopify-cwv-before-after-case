@@ -249,3 +249,20 @@
 
 - Defer render-blocking CSS and JavaScript: https://shopify.dev/docs/storefronts/themes/best-practices/performance/defer-non-critical-resources
 - Section assets: https://shopify.dev/docs/storefronts/themes/architecture/sections/section-assets
+
+## 18. Resource hints reduced to Dawn's own
+
+**Decision.** The layout drops the thirteen hints the baseline added: the preconnects to `cdn.shopify.com`, `monorail-edge.shopifysvc.com` and `shop.app`, the DNS prefetches to `cdn.shopify.com` and `monorail-edge.shopifysvc.com`, and the preloads of `theme-custom.css`, the video poster and the six slide originals. The hints that Dawn `v16.0.0` ships, the font preconnect and the font preloads, stay unchanged.
+
+**Reasons.**
+
+- Shopify already preconnects to `cdn.shopify.com` through its response headers, which the browser acts on before the document, so the theme's hints to that origin duplicated it; Lighthouse lists that platform hint next to the theme's. The analytics endpoint and Shop Pay are first requested after 0.3 to 0.7 s by platform scripts and take no part in the first render, yet their preconnects opened connections in the critical window.
+- `theme-custom.css` is linked in `<head>`, so its preload added nothing. The poster belongs to a home section below the fold and the slides to the home hero, but their preloads ran on every template: the product page downloaded the poster and three slide originals (about 1.2 MB on mobile) next to its own LCP image. The slide preloads also pointed at the original files, which the `srcset` of the hero never requests, through hard-coded CDN URLs.
+- A browser check on the development theme confirms that the product page no longer requests any slide or the poster and that home requests only the `srcset` candidates; the LCP elements are unchanged.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. Page weight fell from 3021 to 1768 KiB on the product page and from 3464 to 2371 KiB on home (mobile), and from 3647 to 1871 KiB and from 4159 to 2534 KiB on desktop. Theme requests fell from 55 to 51 on the product page and from 65 to 62 on home. Product mobile LCP was 2.73–3.33 s in all five runs, against three of five control runs at 8.2–9.1 s; this is the first series in which the product page did not show its slow state, which fits the bandwidth the preloads took from its LCP image. Product mobile TBT rose from 320 to 564 ms (median): the long tasks are the same two vendor-style scripts of decision 9, with the same durations, but they now fall inside the shorter window between first paint and interactive. Home LCP and the desktop metrics are `within run-to-run variance`. Results: `perf/results/o09-control/` and `perf/results/o09/`.
+
+**Sources (checked 2026-11-10).**
+
+- Use preconnect: https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-preconnect
+- Use preload resource hints sparingly: https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-preload-resource-hints-sparingly
+- `uses-rel-preconnect`: https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect
