@@ -218,3 +218,19 @@
 - Lazy load video (preload, poster, IntersectionObserver): https://web.dev/articles/lazy-loading-video
 - `preload` attribute of `<video>`: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#preload
 - WCAG 2.2, Success Criterion 2.2.2 Pause, Stop, Hide: https://www.w3.org/TR/WCAG22/#pause-stop-hide
+
+## 16. `font-display: swap` restored on the theme fonts
+
+**Decision.** The five `font_face` calls in the layout pass `font_display: 'swap'` again, as Dawn `v16.0.0` does.
+
+**Reasons.**
+
+- Without the parameter the generated `@font-face` rules have no `font-display`, so the browser applies its default block period and can hide text while a font file is still loading. With `swap` the text is painted in the fallback font at once and changes face when the file arrives.
+- A browser check on the development theme reads every `@font-face` rule from the page: none has a `font-display` value on the published theme, all have `swap` after the change.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. LCP, FCP, TBT, CLS, weight and the scores on home and product, mobile and desktop, are `within run-to-run variance`. In this session most mobile runs of both series landed in the slow state (home LCP about 9.8 s, product about 8.3 s) and one or two in the fast one. Results: `perf/results/o07-control/` and `perf/results/o07/`.
+- No lab gain was expected: the theme uses one font family, its regular weight is a 13 KiB file that is preloaded and arrives before the first contentful paint, and Lighthouse reported no font display issue in the control runs. The change protects visitors on slower connections than the Lighthouse profile, where the font can arrive after the text is ready.
+
+**Sources (checked 2026-11-10).**
+
+- `font_face` filter, `font_display` parameter: https://shopify.dev/docs/api/liquid/filters/font_face
+- `font-display`: https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display
