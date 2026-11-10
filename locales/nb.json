@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "Bruk færre filtre eller <a class=\"{{ class }}\" href=\"{{ link }}\">fjern alle</a>"
     },
     "video": {
-      "load_video": "Last inn video: {{ description }}"
+      "load_video": "Last inn video: {{ description }}",
+      "pause_video": "Sett videoen på pause"
     },
     "slideshow": {
       "load_slide": "Last inn lysbilde",

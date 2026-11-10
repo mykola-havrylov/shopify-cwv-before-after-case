@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "Χρησιμοποιήστε λιγότερα φίλτρα ή <a class=\"{{ class }}\" href=\"{{ link }}\">καταργήστε τα όλα</a>"
     },
     "video": {
-      "load_video": "Φόρτωση βίντεο: {{ description }}"
+      "load_video": "Φόρτωση βίντεο: {{ description }}",
+      "pause_video": "Παύση βίντεο"
     },
     "slideshow": {
       "load_slide": "Φόρτωση διαφάνειας",

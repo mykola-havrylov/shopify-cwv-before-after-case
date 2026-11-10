@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "Használj kevesebb szűrőt, vagy <a class=\"{{ class }}\" href=\"{{ link }}\">távolítsd el az összeset</a>."
     },
     "video": {
-      "load_video": "Videó betöltése: {{ description }}"
+      "load_video": "Videó betöltése: {{ description }}",
+      "pause_video": "Videó megállítása"
     },
     "slideshow": {
       "load_slide": "Dia betöltése",

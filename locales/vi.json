@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "Sử dụng ít bộ lọc hơn hoặc <a class=\"{{ class }}\" href=\"{{ link }}\">xóa tất cả</a>"
     },
     "video": {
-      "load_video": "Tải video: {{ description }}"
+      "load_video": "Tải video: {{ description }}",
+      "pause_video": "Tạm dừng video"
     },
     "slideshow": {
       "load_slide": "Tải trang chiếu",

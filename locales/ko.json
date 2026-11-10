@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "더 적은 수의 필터를 사용하거나 <a class=\"{{ class }}\" href=\"{{ link }}\">모두 제거하기</a>"
     },
     "video": {
-      "load_video": "동영상 로드: {{ description }}"
+      "load_video": "동영상 로드: {{ description }}",
+      "pause_video": "동영상 멈춤"
     },
     "slideshow": {
       "load_slide": "슬라이드 로드",

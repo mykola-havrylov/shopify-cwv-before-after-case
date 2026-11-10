@@ -330,7 +330,8 @@
       "use_fewer_filters_html": "Daha az filtre kullan veya <a class=\"{{ class }}\" href=\"{{ link }}\">tümünü kaldır</a>"
     },
     "video": {
-      "load_video": "Videoyu yükle: {{ description }}"
+      "load_video": "Videoyu yükle: {{ description }}",
+      "pause_video": "Videoyu duraklat"
     },
     "slideshow": {
       "load_slide": "Slaytı yükle",

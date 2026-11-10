@@ -1,0 +1,120 @@
+{
+  "measurements": {
+    "home-mobile": {
+      "date": "2026-11-06T17:36:13.425Z",
+      "url": "https://cwv-demo.myshopify.com/?pb=0",
+      "theme": {
+        "id": "147330203732",
+        "name": "Development (238ca0-mykola-dev-B550M-AORUS-ELITE)",
+        "role": "development"
+      },
+      "runs": 5,
+      "formFactor": "mobile",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "benchmarkIndex": 3609.5
+    },
+    "product-mobile": {
+      "date": "2026-11-06T17:40:50.314Z",
+      "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+      "theme": {
+        "id": "147330203732",
+        "name": "Development (238ca0-mykola-dev-B550M-AORUS-ELITE)",
+        "role": "development"
+      },
+      "runs": 5,
+      "formFactor": "mobile",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "benchmarkIndex": 3622.5
+    },
+    "home-desktop": {
+      "date": "2026-11-06T17:54:45.895Z",
+      "url": "https://cwv-demo.myshopify.com/?pb=0",
+      "theme": {
+        "id": "147330203732",
+        "name": "Development (238ca0-mykola-dev-B550M-AORUS-ELITE)",
+        "role": "development"
+      },
+      "runs": 5,
+      "formFactor": "desktop",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "benchmarkIndex": 3591.5
+    },
+    "product-desktop": {
+      "date": "2026-11-06T17:59:23.043Z",
+      "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+      "theme": {
+        "id": "147330203732",
+        "name": "Development (238ca0-mykola-dev-B550M-AORUS-ELITE)",
+        "role": "development"
+      },
+      "runs": 5,
+      "formFactor": "desktop",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "benchmarkIndex": 3628
+    }
+  },
+  "lighthouse": "13.5.0",
+  "chrome": "157.0.8103.38",
+  "os": "Linux 7.3.0-10-generic x64",
+  "node": "v24.22.0"
+}

@@ -18,13 +18,14 @@ Not imported: Dawn's `README.md`, `release-notes.md`, `.github/`, `.gitignore`. 
 
 ### Changed Dawn files
 
-| File                                | Change                                                                                                                    |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `layout/theme.liquid`               | Head scripts, resource hints and global stylesheets added; `font_display: 'swap'` removed from the five `font_face` calls |
-| `templates/index.json`              | Hero carousel and promo video sections added; the image banner section removed                                            |
-| `snippets/product-thumbnail.liquid` | `fetchpriority="high"` on the first product image                                                                         |
-| `snippets/card-product.liquid`      | Empty rating slot at the end of the card text                                                                             |
-| `sections/main-product.liquid`      | Empty rating slot after the title block                                                                                   |
+| File                                  | Change                                                                                                                    |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `layout/theme.liquid`                 | Head scripts, resource hints and global stylesheets added; `font_display: 'swap'` removed from the five `font_face` calls |
+| `templates/index.json`                | Hero carousel and promo video sections added; the image banner section removed                                            |
+| `snippets/product-thumbnail.liquid`   | `fetchpriority="high"` on the first product image                                                                         |
+| `snippets/card-product.liquid`        | Empty rating slot at the end of the card text                                                                             |
+| `sections/main-product.liquid`        | Empty rating slot after the title block                                                                                   |
+| `locales/*.json` (storefront locales) | `sections.video.pause_video` added in every language                                                                      |
 
 ## jQuery
 

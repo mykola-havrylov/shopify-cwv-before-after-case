@@ -350,7 +350,8 @@
       "use_fewer_filters_html": "Naudoti mažiau filtrų arba <a class=\"{{ class }}\" href=\"{{ link }}\">pašalinti viską</a>"
     },
     "video": {
-      "load_video": "Įkelti vaizdo įrašą „{{ description }}“"
+      "load_video": "Įkelti vaizdo įrašą „{{ description }}“",
+      "pause_video": "Pristabdyti vaizdo įrašą"
     },
     "slideshow": {
       "load_slide": "Įkelti skaidrę",
