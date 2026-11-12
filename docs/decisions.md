@@ -266,3 +266,20 @@
 - Use preconnect: https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-preconnect
 - Use preload resource hints sparingly: https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-preload-resource-hints-sparingly
 - `uses-rel-preconnect`: https://developer.chrome.com/docs/lighthouse/performance/uses-rel-preconnect
+
+## 19. Long tasks split and layout reads removed from the interaction handler
+
+**Decision.** The theme's interaction handler for variant changes, the add to cart button and the filter buttons no longer reads layout. It yields to the browser first (`scheduler.yield()`, or `setTimeout` where that is missing) and then writes the styles of the `main` elements in one pass inside `requestAnimationFrame`. The tag-manager stand-in evaluates each of its twelve tags in its own task and yields between them. The analytics stand-in is left unchanged: it stands for code a theme does not own.
+
+**Reasons.**
+
+- The baseline handler wrote a style and read `offsetHeight` in a loop for 180 ms, so every iteration forced a synchronous layout, and the values it read were never used. The writes stay; without the reads the browser lays out once in the next frame. The baseline loop wrote each element many times and stopped wherever 180 ms ran out, so its final styles were not fixed; the new pass writes each element once.
+- Yielding before the work lets the interaction paint its own update first, as Shopify's guidance on event handlers recommends. In a controlled interaction latency diagnostic on the product page (one visit per theme, Chrome with 4× CPU slowdown, two repetitions) the variant click took 200 ms before, with 186–187 ms of processing, and 16 ms after, with 5 ms; the long task after the click disappeared. This is a single-visit lab diagnostic, not field INP; the password-protected store has no field data in CrUX or the Web Performance Dashboard.
+- The tag-manager stand-in ran its twelve tags in one synchronous loop, one task of about 110 ms (about 433 ms in Lighthouse's simulated mobile CPU). Each tag now runs in a task of its own, below the 50 ms long-task threshold even with the mobile slowdown. A real container is changed through its own configuration, not its code; the stand-in models a container whose tags fire as separate tasks.
+- A/B measurement, 5 runs, published theme before and development theme after, same session. TBT fell from 503 to 191 ms on the product page and from 346 to 158 ms on home on mobile (363–632 ms before and 127–323 ms after on the product page; 318–356 ms before and 123–168 ms after on home), and from 39 to 10 ms on both pages on desktop. The scores rose from 60 to 88 on the product page and from 77 to 87 on home on mobile. The remaining product-page long tasks are the analytics stand-in (281 ms simulated) and a platform script (71 ms). Product mobile LCP was 2.88–3.18 s in all five runs, against three of five control runs at 4.98–5.08 s; the change does not touch images and the control keeps the two states seen in earlier series, so the LCP difference is not attributed to it. Home LCP, desktop LCP, CLS, weight and requests are `within run-to-run variance`. Results: `perf/results/o10-control/` and `perf/results/o10/`.
+
+**Sources (checked 2026-11-10).**
+
+- Debounce, throttle, and yield in event handlers: https://shopify.dev/docs/storefronts/themes/best-practices/performance/debounce-throttle-event-handlers
+- Optimizing for Interaction to Next Paint (INP): https://shopify.dev/docs/storefronts/themes/best-practices/performance/understanding-inp
+- Audit and remove third-party scripts: https://shopify.dev/docs/storefronts/themes/best-practices/performance/audit-remove-third-party-scripts

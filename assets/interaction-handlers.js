@@ -1,17 +1,22 @@
-/* Storefront interaction hooks: recalculate layout metrics on variant change, add to cart and filter buttons. */
+/* Storefront interaction hooks: recalculate layout metrics on variant change, add to cart and filter buttons, after the interaction has painted. */
 (function () {
-  const WORK_MS = 180;
+  let pending = false;
 
-  function refreshLayoutMetrics() {
-    const nodes = document.querySelectorAll('main *');
-    const end = performance.now() + WORK_MS;
-    let index = 0;
-    while (performance.now() < end && nodes.length > 0) {
-      const node = nodes[index % nodes.length];
-      node.style.minWidth = index % 2 ? '0px' : 'auto';
-      void node.offsetHeight;
-      index += 1;
-    }
+  function yieldToMain() {
+    if (globalThis.scheduler?.yield) return globalThis.scheduler.yield();
+    return new Promise((resolve) => setTimeout(resolve, 0));
+  }
+
+  async function refreshLayoutMetrics() {
+    if (pending) return;
+    pending = true;
+    await yieldToMain();
+    requestAnimationFrame(() => {
+      document.querySelectorAll('main *').forEach((node, index) => {
+        node.style.minWidth = index % 2 ? '0px' : 'auto';
+      });
+      pending = false;
+    });
   }
 
   document.addEventListener('change', (event) => {
