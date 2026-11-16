@@ -1,0 +1,143 @@
+{
+  "urls": {
+    "product": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+    "collection": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0"
+  },
+  "median": {
+    "variant": {
+      "duration": 24,
+      "inputDelay": 4,
+      "processing": 12,
+      "presentation": 9
+    },
+    "addToCart": {
+      "duration": 40,
+      "inputDelay": 4,
+      "processing": 12,
+      "presentation": 24
+    },
+    "filters": {
+      "duration": 48,
+      "inputDelay": 3,
+      "processing": 8,
+      "presentation": 37
+    }
+  },
+  "runs": [
+    {
+      "variant": {
+        "duration": 24,
+        "inputDelay": 4,
+        "processing": 12,
+        "presentation": 8,
+        "scripts": []
+      },
+      "addToCart": {
+        "duration": 64,
+        "inputDelay": 4,
+        "processing": 13,
+        "presentation": 48,
+        "scripts": []
+      },
+      "filters": {
+        "duration": 48,
+        "inputDelay": 3,
+        "processing": 8,
+        "presentation": 37,
+        "scripts": []
+      }
+    },
+    {
+      "variant": {
+        "duration": 32,
+        "inputDelay": 4,
+        "processing": 12,
+        "presentation": 17,
+        "scripts": []
+      },
+      "addToCart": {
+        "duration": 32,
+        "inputDelay": 2,
+        "processing": 12,
+        "presentation": 18,
+        "scripts": []
+      },
+      "filters": {
+        "duration": 56,
+        "inputDelay": 3,
+        "processing": 8,
+        "presentation": 45,
+        "scripts": []
+      }
+    },
+    {
+      "variant": {
+        "duration": 24,
+        "inputDelay": 4,
+        "processing": 12,
+        "presentation": 9,
+        "scripts": []
+      },
+      "addToCart": {
+        "duration": 40,
+        "inputDelay": 4,
+        "processing": 12,
+        "presentation": 24,
+        "scripts": []
+      },
+      "filters": {
+        "duration": 48,
+        "inputDelay": 4,
+        "processing": 8,
+        "presentation": 37,
+        "scripts": []
+      }
+    },
+    {
+      "variant": {
+        "duration": 32,
+        "inputDelay": 4,
+        "processing": 12,
+        "presentation": 16,
+        "scripts": []
+      },
+      "addToCart": {
+        "duration": 32,
+        "inputDelay": 1,
+        "processing": 13,
+        "presentation": 18,
+        "scripts": []
+      },
+      "filters": {
+        "duration": 48,
+        "inputDelay": 3,
+        "processing": 7,
+        "presentation": 37,
+        "scripts": []
+      }
+    },
+    {
+      "variant": {
+        "duration": 24,
+        "inputDelay": 4,
+        "processing": 12,
+        "presentation": 9,
+        "scripts": []
+      },
+      "addToCart": {
+        "duration": 40,
+        "inputDelay": 4,
+        "processing": 12,
+        "presentation": 24,
+        "scripts": []
+      },
+      "filters": {
+        "duration": 48,
+        "inputDelay": 3,
+        "processing": 7,
+        "presentation": 38,
+        "scripts": []
+      }
+    }
+  ]
+}

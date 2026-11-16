@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-16T12:26:33.271Z",
+  "chrome": "157.0.8103.78",
+  "puppeteer": "25.14.0",
+  "os": "Windows_NT 10.0.26300 x64",
+  "node": "v24.12.0",
+  "origin": "https://cwv-demo.myshopify.com",
+  "themeId": "146574082132",
+  "urls": {
+    "product": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+    "collection": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0"
+  },
+  "visits": 5,
+  "viewport": {
+    "width": 412,
+    "height": 823,
+    "deviceScaleFactor": 1.75,
+    "isMobile": true,
+    "hasTouch": true
+  },
+  "cpuSlowdown": 4,
+  "network": "not throttled",
+  "settleMs": 5000,
+  "afterInteractionMs": 3000
+}
