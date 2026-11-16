@@ -71,3 +71,41 @@ Before Lighthouse starts, the script unlocks the storefront, fetches each URL, f
 Medians are computed per metric, so the values in `summary.md` can come from different runs; the stored full result is the run with the median score.
 
 Budgets and failure thresholds: [`budget.md`](budget.md).
+
+## Interaction latency diagnostic
+
+`perf/interaction.mjs` replays one scenario in a real Chrome driven by Puppeteer: on the product page it selects another variant and adds the product to the cart, on the collection page it opens the filters. It is a controlled interaction latency diagnostic in the lab, not field INP and not a Core Web Vitals pass or fail.
+
+| Parameter   | Value                                                                                                                                                               |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Device      | 412 × 823 viewport, device pixel ratio 1.75, mobile and touch emulation (the size of Lighthouse's mobile preset)                                                    |
+| CPU         | 4× slowdown through the DevTools protocol; the network is not throttled, because the interactions are measured after the page has loaded                            |
+| Visits      | 5 per theme, each in a new browser context (empty cart, fresh storefront session); every phase is reported as the median of the 5 visits                            |
+| Timing      | Each page is left idle for 5 s after `load`, so deferred and on-load scripts have run; each interaction is followed by 3 s of idle time                             |
+| Latency     | Event Timing entries of the interaction: input delay, processing time and presentation delay, the three phases INP is made of; entries below 16 ms are not reported |
+| Attribution | Long animation frames around the interaction, with the scripts that ran in them, their invoker and the time spent in forced style and layout                        |
+| Traces      | With `--trace`, one extra visit records a DevTools trace of the interactions on each page; it is not counted in the medians                                         |
+
+```bash
+export SHOP_PASSWORD='<storefront password>'
+
+node perf/interaction.mjs --store <store>.myshopify.com --label interaction-main --expect-theme-id <theme id> \
+  --product /products/<handle> --collection /collections/<handle> --trace
+
+node perf/interaction.mjs --store <store>.myshopify.com --label interaction-baseline --theme-id <theme id> \
+  --product /products/<handle> --collection /collections/<handle> --trace
+```
+
+The theme id options behave as in `perf/run.mjs`; the run fails on the password page, on a different theme id, or when the add to cart button is missing or disabled.
+
+`perf/results/<label>/`:
+
+| File                       | Content                                                                              |
+| -------------------------- | ------------------------------------------------------------------------------------ |
+| `interaction.runs.json`    | Phases and script attribution of every interaction in every visit, and the medians   |
+| `environment.json`         | Chrome, Puppeteer, OS and Node versions, date, URLs, theme id and the settings above |
+| `summary.md`               | Median phases per interaction                                                        |
+| `product-trace.json.gz`    | DevTools trace of the product page interactions (with `--trace`)                     |
+| `collection-trace.json.gz` | DevTools trace of opening the filters (with `--trace`)                               |
+
+A trace opens in Chrome DevTools: Performance panel → Load profile, with the `.json.gz` file selected as it is. The Interactions track shows each interaction with its phases, and the Main track shows the scripts and the forced layouts behind it.

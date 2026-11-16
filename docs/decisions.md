@@ -283,3 +283,27 @@
 - Debounce, throttle, and yield in event handlers: https://shopify.dev/docs/storefronts/themes/best-practices/performance/debounce-throttle-event-handlers
 - Optimizing for Interaction to Next Paint (INP): https://shopify.dev/docs/storefronts/themes/best-practices/performance/understanding-inp
 - Audit and remove third-party scripts: https://shopify.dev/docs/storefronts/themes/best-practices/performance/audit-remove-third-party-scripts
+
+## 20. Interaction latency diagnostic in a scripted browser
+
+**Decision.** Interaction latency is diagnosed with `perf/interaction.mjs`: Puppeteer replays variant select and add to cart on the product page and opening the filters on a collection page, on mobile emulation with a 4× CPU slowdown, five visits per theme. Each interaction is split into input delay, processing time and presentation delay from Event Timing entries, and the scripts behind it are taken from long animation frames. One more visit per theme records a DevTools trace of the interactions, stored gzip-compressed next to the results. `puppeteer-core` is declared at the version Lighthouse already installs, so no new package enters the lockfile.
+
+**Reasons.**
+
+- Lighthouse loads the page without interacting, so TBT says nothing about the theme's own handlers: the interaction handler of the baseline never ran in a Lighthouse run. INP needs field data, which this password-protected store does not have (no CrUX record, nothing in the Web Performance Dashboard). A scripted visit gives a repeatable lab diagnostic with the same three phases INP is made of; it is reported as a controlled interaction latency diagnostic, never as field INP or a Core Web Vitals pass or fail.
+- Long animation frames name the script, its invoker and the time spent in forced style and layout, which separates the theme's handler from Dawn's own work and from the vendor-style scripts without reading every trace by hand. The traces stay available for checking in the DevTools Performance panel.
+- Results, published `main` theme (146574082132, tag `o10`) against the `baseline` theme (146800902228), 5 visits each, medians, Chrome 157:
+
+  | Interaction    | Baseline latency | Main latency | Baseline processing | Main processing |
+  | -------------- | ---------------: | -----------: | ------------------: | --------------: |
+  | Variant select |           264 ms |        24 ms |              192 ms |           12 ms |
+  | Add to cart    |           216 ms |        40 ms |              194 ms |           12 ms |
+  | Open filters   |           208 ms |        48 ms |              188 ms |            8 ms |
+
+  The ranges do not overlap (baseline 256–272, 216–240 and 208–216 ms; main 24–32, 32–64 and 48–56 ms). On the baseline every interaction is dominated by `interaction-handlers.js`, about 180 ms per run, of which 152–156 ms is forced style and layout on variant select, 70–91 ms on opening the filters and 20–28 ms on add to cart. On `main` no animation frame around the interactions reaches the 50 ms long-frame threshold. Input delay is 2–5 ms on both themes, because the page is left idle for 5 s before the first interaction, so the vendor-style scripts have finished; their effect on load is covered by TBT. Results: `perf/results/interaction-baseline/` and `perf/results/interaction-main/`.
+
+**Sources (checked 2026-11-16).**
+
+- Optimizing for Interaction to Next Paint (INP): https://shopify.dev/docs/storefronts/themes/best-practices/performance/understanding-inp
+- Event Timing API: https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEventTiming
+- Long Animation Frames API: https://developer.chrome.com/docs/web-platform/long-animation-frames

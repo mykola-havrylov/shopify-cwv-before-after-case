@@ -1,0 +1,290 @@
+{
+  "urls": {
+    "product": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+    "collection": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0"
+  },
+  "median": {
+    "variant": {
+      "duration": 264,
+      "inputDelay": 5,
+      "processing": 192,
+      "presentation": 68
+    },
+    "addToCart": {
+      "duration": 216,
+      "inputDelay": 2,
+      "processing": 194,
+      "presentation": 21
+    },
+    "filters": {
+      "duration": 208,
+      "inputDelay": 3,
+      "processing": 188,
+      "presentation": 19
+    }
+  },
+  "runs": [
+    {
+      "variant": {
+        "duration": 272,
+        "inputDelay": 5,
+        "processing": 195,
+        "presentation": 72,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onchange",
+            "duration": 181,
+            "forcedLayout": 152
+          },
+          {
+            "script": "product-info.js",
+            "invoker": "Response.text.then",
+            "duration": 55,
+            "forcedLayout": 15
+          },
+          {
+            "script": "global.js",
+            "invoker": "VARIANT-SELECTS#variant-selects-template--20392739078228__main.onchange",
+            "duration": 5,
+            "forcedLayout": 0
+          }
+        ]
+      },
+      "addToCart": {
+        "duration": 240,
+        "inputDelay": 4,
+        "processing": 193,
+        "presentation": 44,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 24
+          }
+        ]
+      },
+      "filters": {
+        "duration": 216,
+        "inputDelay": 4,
+        "processing": 188,
+        "presentation": 24,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 94
+          }
+        ]
+      }
+    },
+    {
+      "variant": {
+        "duration": 264,
+        "inputDelay": 4,
+        "processing": 192,
+        "presentation": 68,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onchange",
+            "duration": 181,
+            "forcedLayout": 152
+          },
+          {
+            "script": "product-info.js",
+            "invoker": "Response.text.then",
+            "duration": 81,
+            "forcedLayout": 20
+          }
+        ]
+      },
+      "addToCart": {
+        "duration": 216,
+        "inputDelay": 2,
+        "processing": 194,
+        "presentation": 20,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 23
+          }
+        ]
+      },
+      "filters": {
+        "duration": 208,
+        "inputDelay": 3,
+        "processing": 188,
+        "presentation": 17,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 90
+          }
+        ]
+      }
+    },
+    {
+      "variant": {
+        "duration": 272,
+        "inputDelay": 5,
+        "processing": 196,
+        "presentation": 71,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onchange",
+            "duration": 181,
+            "forcedLayout": 156
+          },
+          {
+            "script": "product-info.js",
+            "invoker": "Response.text.then",
+            "duration": 83,
+            "forcedLayout": 15
+          },
+          {
+            "script": "global.js",
+            "invoker": "VARIANT-SELECTS#variant-selects-template--20392739078228__main.onchange",
+            "duration": 5,
+            "forcedLayout": 0
+          }
+        ]
+      },
+      "addToCart": {
+        "duration": 216,
+        "inputDelay": 2,
+        "processing": 194,
+        "presentation": 21,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 181,
+            "forcedLayout": 24
+          }
+        ]
+      },
+      "filters": {
+        "duration": 216,
+        "inputDelay": 4,
+        "processing": 188,
+        "presentation": 24,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 91
+          }
+        ]
+      }
+    },
+    {
+      "variant": {
+        "duration": 264,
+        "inputDelay": 5,
+        "processing": 192,
+        "presentation": 67,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onchange",
+            "duration": 181,
+            "forcedLayout": 154
+          },
+          {
+            "script": "product-info.js",
+            "invoker": "Response.text.then",
+            "duration": 86,
+            "forcedLayout": 20
+          }
+        ]
+      },
+      "addToCart": {
+        "duration": 216,
+        "inputDelay": 2,
+        "processing": 194,
+        "presentation": 21,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 181,
+            "forcedLayout": 20
+          }
+        ]
+      },
+      "filters": {
+        "duration": 208,
+        "inputDelay": 3,
+        "processing": 187,
+        "presentation": 19,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 72
+          }
+        ]
+      }
+    },
+    {
+      "variant": {
+        "duration": 256,
+        "inputDelay": 4,
+        "processing": 192,
+        "presentation": 60,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onchange",
+            "duration": 181,
+            "forcedLayout": 153
+          },
+          {
+            "script": "product-info.js",
+            "invoker": "Response.text.then",
+            "duration": 69,
+            "forcedLayout": 16
+          }
+        ]
+      },
+      "addToCart": {
+        "duration": 216,
+        "inputDelay": 1,
+        "processing": 191,
+        "presentation": 24,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 28
+          }
+        ]
+      },
+      "filters": {
+        "duration": 208,
+        "inputDelay": 3,
+        "processing": 186,
+        "presentation": 19,
+        "scripts": [
+          {
+            "script": "interaction-handlers.js",
+            "invoker": "#document.onclick",
+            "duration": 180,
+            "forcedLayout": 70
+          }
+        ]
+      }
+    }
+  ]
+}
