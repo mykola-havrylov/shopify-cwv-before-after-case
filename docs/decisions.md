@@ -310,10 +310,12 @@
 
 ## 21. Lighthouse CI through Shopify's action, budgets checked from `perf/budget.md`
 
-**Decision.** A workflow runs Shopify's Lighthouse CI action on every pull request from this repository and on every push to `main`. It authenticates with the Dev Dashboard app's client credentials (`client_id`, `client_secret`), never a legacy access token, and measures home, `/products/ridge-22-daypack` and `/collections/backpacks` on a development theme uploaded from the checked-out commit. The action is pinned to the commit of v1.4.0. A second step, `perf/ci-budget.mjs`, takes the medians of the action's results and checks them against every failure threshold in `perf/budget.md`, read from that file, and against the Theme Store average. The workflow is report-only; one variable, `BUDGET_MODE`, switches it to required without changing any threshold.
+**Decision.** A workflow runs Shopify's Lighthouse CI action on every pull request from this repository and on every push to `main`. It authenticates with a password from Shopify's Theme Access app, passed through the action's `access_token` input, and measures home, `/products/ridge-22-daypack` and `/collections/backpacks` on a development theme uploaded from the checked-out commit. The action is pinned to the commit of v1.4.0. A second step, `perf/ci-budget.mjs`, takes the medians of the action's results and checks them against every failure threshold in `perf/budget.md`, read from that file, and against the Theme Store average. The workflow is report-only; one variable, `BUDGET_MODE`, switches it to required without changing any threshold.
 
 **Reasons.**
 
+- The action's README offers the client credentials of a Dev Dashboard app with `write_themes`. The first run with them failed: the Admin API refused to create the development theme, because creating or changing themes from an app needs `write_themes` and an exemption from Shopify. A Theme Access password is Shopify's documented credential for theme commands in CI: it grants `write_themes` only, and the action exports it to the CLI as `SHOPIFY_CLI_THEME_TOKEN`. With the product and collection handles set, the action makes no Admin API call, so it needs nothing else; the Dev Dashboard app keeps its role in seeding the catalogue.
+- The action writes a CommonJS helper (`setPreviewCookies.js`) into the workspace root. The repository is checked out into `theme/`, because its `package.json` declares `"type": "module"` and made Node load the helper as an ES module in the first run.
 - The action's only assertions are minimum performance and accessibility scores. The budgets also set limits for LCP, CLS, TBT, page weight and theme requests, so they are checked in a separate step that reads the same file the budgets are written in; no threshold is copied into the workflow. The action's performance assertion is set to the failure threshold of 60 and its accessibility assertion is turned off, because the budgets, fixed before the first optimisation, have no accessibility threshold.
 - The action's Docker image installs the latest Shopify CLI when it is built, so a CLI change can break the job, as it once broke the Theme Check action (decision 11). The action itself is pinned to a commit; report-only mode keeps such a failure from blocking a merge until the job has proved stable.
 - The action's results stay in `.lighthouseci/` in the workspace, since GitHub runs Docker actions with the workspace as the working directory, so the budget step can read them.
@@ -325,5 +327,8 @@
 - Shopify Lighthouse CI action, README, `action.yml`, `entrypoint.sh` and `Dockerfile` at v1.4.0: https://github.com/Shopify/lighthouse-ci-action
 - Testing for performance, Lighthouse CI: https://shopify.dev/docs/storefronts/themes/best-practices/performance/testing-for-performance
 - Shopify CLI for themes, development themes: https://shopify.dev/docs/storefronts/themes/tools/cli
+- Use Shopify CLI in a CI/CD pipeline: https://shopify.dev/docs/storefronts/themes/tools/cli/ci-cd
+- Manage theme access: https://shopify.dev/docs/storefronts/themes/tools/theme-access
+- `themeFilesUpsert`, exemption required to modify theme files: https://shopify.dev/docs/api/admin-graphql/2026-10/mutations/themeFilesUpsert
 - Lighthouse CI configuration (`numberOfRuns` default, `.lighthouseci/`): https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md
 - Dockerfile support for GitHub Actions, `WORKDIR`: https://docs.github.com/en/actions/sharing-automations/creating-actions/dockerfile-support-for-github-actions

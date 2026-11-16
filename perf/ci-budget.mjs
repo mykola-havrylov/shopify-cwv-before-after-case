@@ -132,21 +132,21 @@ async function main() {
   const thresholds = parseBudget(await readFile(BUDGET_FILE, 'utf8'));
   const results = await readResults(values.dir);
   const output = ['## Performance budgets', '', `Mode: ${values.mode}. Medians of the Lighthouse CI runs.`, ''];
-  let failures;
-  if (Object.keys(results.pages).length === 0) {
-    output.push(`No Lighthouse results found in \`${values.dir}\`.`);
-    failures = 1;
+  const empty = Object.keys(results.pages).length === 0;
+  let problem = `No Lighthouse results found in ${values.dir}`;
+  if (empty) {
+    output.push(`${problem}.`);
   } else {
-    const { lines, failures: count } = report(thresholds, results);
-    output.push(...lines, `${count} breach(es) of the failure thresholds.`);
-    failures = count;
+    const { lines, failures } = report(thresholds, results);
+    output.push(...lines, `${failures} breach(es) of the failure thresholds.`);
+    problem = failures ? `${failures} performance budget breach(es)` : '';
   }
 
   const text = `${output.join('\n')}\n`;
   if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, text);
   console.log(text);
-  if (failures && values.mode === 'required') process.exitCode = 1;
-  else if (failures) console.log(`::warning::${failures} performance budget breach(es); report-only mode.`);
+  if (problem && values.mode === 'required') process.exitCode = 1;
+  else if (problem) console.log(`::warning::${problem}; report-only mode.`);
 }
 
 try {
