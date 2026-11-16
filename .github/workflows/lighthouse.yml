@@ -1,0 +1,46 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUDGET_MODE: report
+
+jobs:
+  lighthouse:
+    name: Lighthouse
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Lighthouse
+        continue-on-error: ${{ env.BUDGET_MODE == 'report' }}
+        uses: shopify/lighthouse-ci-action@988f0eeb44ad5f298bd47150e5b9b01c27ead975 # v1.4.0
+        with:
+          store: ${{ secrets.SHOP_STORE }}
+          client_id: ${{ secrets.SHOP_CLIENT_ID }}
+          client_secret: ${{ secrets.SHOP_CLIENT_SECRET }}
+          password: ${{ secrets.SHOP_PASSWORD }}
+          product_handle: ridge-22-daypack
+          collection_handle: backpacks
+          lhci_min_score_performance: 0.6
+          lhci_min_score_accessibility: 0
+
+      - uses: actions/setup-node@v7
+        if: always()
+        with:
+          node-version: 24
+
+      - name: Budgets
+        if: always()
+        run: node perf/ci-budget.mjs --mode "$BUDGET_MODE"
