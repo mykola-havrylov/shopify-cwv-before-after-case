@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import * as chromeLauncher from 'chrome-launcher';
 import lighthouse, { desktopConfig } from 'lighthouse';
-import { countThemeRequests } from './theme-requests.mjs';
+import { extractMetrics, median } from './metrics.mjs';
 
 const RESULTS_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), 'results');
 const PAGE_WEIGHTS = { home: 0.17, product: 0.4, collection: 0.43 };
@@ -170,26 +170,6 @@ async function preflight(url, jar, expectedThemeId) {
     fail(`measured theme ${theme.id} differs from the requested theme ${expectedThemeId}.`);
   }
   return theme;
-}
-
-function extractMetrics(lhr) {
-  const audit = (id) => lhr.audits[id]?.numericValue ?? Number.NaN;
-  return {
-    score: (lhr.categories.performance.score ?? Number.NaN) * 100,
-    lcp: audit('largest-contentful-paint'),
-    cls: audit('cumulative-layout-shift'),
-    tbt: audit('total-blocking-time'),
-    fcp: audit('first-contentful-paint'),
-    weight: audit('total-byte-weight'),
-    themeRequests: countThemeRequests(lhr),
-    requests: lhr.audits['network-requests']?.details?.items?.length ?? Number.NaN,
-  };
-}
-
-function median(values) {
-  const sorted = [...values].sort((a, b) => a - b);
-  const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
 }
 
 async function runLighthouse(url, cookie, formFactor) {

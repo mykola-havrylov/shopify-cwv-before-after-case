@@ -38,4 +38,4 @@ MPL-2.0 applies to `axe-core` (a Lighthouse dependency), used unmodified.
 ## Other tools
 
 - Shopify CLI (`shopify theme check`) runs through `npx` at a pinned version in CI, not through `package.json`.
-- GitHub Actions: `actions/checkout`, `actions/setup-node`.
+- GitHub Actions: `actions/checkout`, `actions/setup-node`, `shopify/lighthouse-ci-action` (MIT, https://github.com/Shopify/lighthouse-ci-action), pinned to the commit of v1.4.0.
