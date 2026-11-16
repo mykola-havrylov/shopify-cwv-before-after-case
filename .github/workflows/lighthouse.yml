@@ -22,15 +22,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          path: theme
 
       - name: Lighthouse
         continue-on-error: ${{ env.BUDGET_MODE == 'report' }}
         uses: shopify/lighthouse-ci-action@988f0eeb44ad5f298bd47150e5b9b01c27ead975 # v1.4.0
         with:
           store: ${{ secrets.SHOP_STORE }}
-          client_id: ${{ secrets.SHOP_CLIENT_ID }}
-          client_secret: ${{ secrets.SHOP_CLIENT_SECRET }}
+          access_token: ${{ secrets.SHOP_THEME_TOKEN }}
           password: ${{ secrets.SHOP_PASSWORD }}
+          theme_root: theme
           product_handle: ridge-22-daypack
           collection_handle: backpacks
           lhci_min_score_performance: 0.6
@@ -43,4 +45,5 @@ jobs:
 
       - name: Budgets
         if: always()
-        run: node perf/ci-budget.mjs --mode "$BUDGET_MODE"
+        working-directory: theme
+        run: node perf/ci-budget.mjs --dir ../.lighthouseci --mode "$BUDGET_MODE"

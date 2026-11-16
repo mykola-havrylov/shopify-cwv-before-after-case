@@ -67,10 +67,11 @@ async function readResults(dir) {
     if (!page) continue;
     const formFactor = lhr.configSettings.formFactor;
     pages[formFactor] ??= {};
-    pages[formFactor][page] ??= { runs: [], url: lhr.requestedUrl };
+    pages[formFactor][page] ??= { runs: [] };
     pages[formFactor][page].runs.push(extractMetrics(lhr));
   }
-  const links = JSON.parse(await readFile(path.join(dir, 'links.json'), 'utf8').catch(() => '{}'));
+  const uploaded = JSON.parse(await readFile(path.join(dir, 'links.json'), 'utf8').catch(() => '{}'));
+  const links = Object.fromEntries(Object.entries(uploaded).map(([url, link]) => [pageOf(url), link]));
   return { pages, links };
 }
 
@@ -87,7 +88,7 @@ function report(thresholds, { pages, links }) {
     );
     const scores = {};
     for (const page of Object.keys(PAGE_WEIGHTS).filter((name) => byPage[name])) {
-      const { runs, url } = byPage[page];
+      const { runs } = byPage[page];
       const cells = Object.values(METRICS).map(({ key, format }) => {
         const value = median(runs.map((run) => run[key]));
         if (key === 'score') scores[page] = value;
@@ -95,7 +96,7 @@ function report(thresholds, { pages, links }) {
         failures += failed ? 1 : 0;
         return `${failed ? '❌' : '✅'} ${format(value)}`;
       });
-      const link = links[url] ? `[report](${links[url]})` : '';
+      const link = links[page] ? `[report](${links[page]})` : '';
       lines.push(`| ${page} | ${runs.length} | ${cells.join(' | ')} | ${link} |`);
     }
     lines.push(
@@ -132,21 +133,21 @@ async function main() {
   const thresholds = parseBudget(await readFile(BUDGET_FILE, 'utf8'));
   const results = await readResults(values.dir);
   const output = ['## Performance budgets', '', `Mode: ${values.mode}. Medians of the Lighthouse CI runs.`, ''];
-  let failures;
-  if (Object.keys(results.pages).length === 0) {
-    output.push(`No Lighthouse results found in \`${values.dir}\`.`);
-    failures = 1;
+  const empty = Object.keys(results.pages).length === 0;
+  let problem = `No Lighthouse results found in ${values.dir}`;
+  if (empty) {
+    output.push(`${problem}.`);
   } else {
-    const { lines, failures: count } = report(thresholds, results);
-    output.push(...lines, `${count} breach(es) of the failure thresholds.`);
-    failures = count;
+    const { lines, failures } = report(thresholds, results);
+    output.push(...lines, `${failures} breach(es) of the failure thresholds.`);
+    problem = failures ? `${failures} performance budget breach(es)` : '';
   }
 
   const text = `${output.join('\n')}\n`;
   if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, text);
   console.log(text);
-  if (failures && values.mode === 'required') process.exitCode = 1;
-  else if (failures) console.log(`::warning::${failures} performance budget breach(es); report-only mode.`);
+  if (problem && values.mode === 'required') process.exitCode = 1;
+  else if (problem) console.log(`::warning::${problem}; report-only mode.`);
 }
 
 try {
