@@ -1,0 +1,176 @@
+{
+  "measurements": {
+    "home-mobile": {
+      "date": "2026-11-17T14:09:02.255Z",
+      "url": "https://cwv-demo.myshopify.com/?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "mobile",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "benchmarkIndex": 3544.5
+    },
+    "product-mobile": {
+      "date": "2026-11-17T14:13:44.711Z",
+      "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "mobile",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "benchmarkIndex": 3580.5
+    },
+    "collection-mobile": {
+      "date": "2026-11-17T14:18:22.495Z",
+      "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "mobile",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 150,
+        "throughputKbps": 1638.4,
+        "requestLatencyMs": 562.5,
+        "downloadThroughputKbps": 1474.5600000000002,
+        "uploadThroughputKbps": 675,
+        "cpuSlowdownMultiplier": 4
+      },
+      "screenEmulation": {
+        "mobile": true,
+        "width": 412,
+        "height": 823,
+        "deviceScaleFactor": 1.75,
+        "disabled": false
+      },
+      "benchmarkIndex": 3622
+    },
+    "home-desktop": {
+      "date": "2026-11-17T14:51:11.025Z",
+      "url": "https://cwv-demo.myshopify.com/?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "desktop",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "benchmarkIndex": 3626.5
+    },
+    "product-desktop": {
+      "date": "2026-11-17T14:55:48.746Z",
+      "url": "https://cwv-demo.myshopify.com/products/ridge-22-daypack?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "desktop",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "benchmarkIndex": 3633.5
+    },
+    "collection-desktop": {
+      "date": "2026-11-17T15:00:26.030Z",
+      "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
+      "theme": {
+        "id": "146574082132",
+        "name": "shopify-cwv-before-after-case/main",
+        "role": "main"
+      },
+      "runs": 5,
+      "formFactor": "desktop",
+      "throttlingMethod": "simulate",
+      "throttling": {
+        "rttMs": 40,
+        "throughputKbps": 10240,
+        "requestLatencyMs": 0,
+        "downloadThroughputKbps": 0,
+        "uploadThroughputKbps": 0,
+        "cpuSlowdownMultiplier": 1
+      },
+      "screenEmulation": {
+        "mobile": false,
+        "width": 1350,
+        "height": 940,
+        "deviceScaleFactor": 1,
+        "disabled": false
+      },
+      "benchmarkIndex": 3615
+    }
+  },
+  "lighthouse": "13.5.0",
+  "chrome": "157.0.8103.78",
+  "os": "Linux 7.3.0-10-generic x64",
+  "node": "v24.22.0"
+}

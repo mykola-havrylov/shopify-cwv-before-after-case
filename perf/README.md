@@ -83,7 +83,7 @@ The workflow is report-only: `BUDGET_MODE: report` lets the Lighthouse step and 
 
 The repository is checked out into `theme/`: the action writes a CommonJS helper into the workspace root, where this repository's `package.json` (`"type": "module"`) would make Node load it as an ES module.
 
-Limits of the CI numbers: 3 runs instead of 5, mobile only, a GitHub-hosted runner instead of the local machine. They watch for regressions; the results in `perf/results/` come from `perf/run.mjs`. The Shopify CLI inside the action is not pinned by the action. The development theme it creates is not removed by the action; Shopify deletes development themes after seven days of inactivity, and they do not count toward the theme limit.
+Limits of the CI numbers: 3 runs instead of 5, mobile only, a GitHub-hosted runner instead of the local machine. The runner's CPU is slower (Lighthouse CPU benchmark index about 2450 against about 3600 locally) while the same 4× slowdown applies, so TBT on the runner is higher and varies more, mostly in Shopify's platform scripts; the workflow therefore stays in report mode (decision 21 in [`docs/decisions.md`](../docs/decisions.md)). They watch for regressions; the results in `perf/results/` come from `perf/run.mjs`. The Shopify CLI inside the action is not pinned by the action. The development theme it creates is not removed by the action; Shopify deletes development themes after seven days of inactivity, and they do not count toward the theme limit.
 
 ```bash
 # The budget check on local results, e.g. a .lighthouseci/ folder from a local lhci run

@@ -1,0 +1,67 @@
+{
+  "page": "collection",
+  "formFactor": "desktop",
+  "url": "https://cwv-demo.myshopify.com/collections/backpacks?pb=0",
+  "median": {
+    "score": 99,
+    "lcp": 703.536,
+    "cls": 0.004313607512483648,
+    "tbt": 10,
+    "fcp": 563.862,
+    "weight": 1714704,
+    "themeRequests": 50,
+    "requests": 378
+  },
+  "runs": [
+    {
+      "score": 99,
+      "lcp": 580.2745,
+      "cls": 0.004313607512483648,
+      "tbt": 10,
+      "fcp": 312.779,
+      "weight": 1735189,
+      "themeRequests": 50,
+      "requests": 379
+    },
+    {
+      "score": 99,
+      "lcp": 765.871,
+      "cls": 0.001464358590728837,
+      "tbt": 10,
+      "fcp": 551.665,
+      "weight": 1713843,
+      "themeRequests": 50,
+      "requests": 375
+    },
+    {
+      "score": 99,
+      "lcp": 727.834,
+      "cls": 0.001739938989722087,
+      "tbt": 10,
+      "fcp": 563.862,
+      "weight": 1714704,
+      "themeRequests": 50,
+      "requests": 378
+    },
+    {
+      "score": 99,
+      "lcp": 703.536,
+      "cls": 0.004313607512483648,
+      "tbt": 10,
+      "fcp": 566.536,
+      "weight": 1714661,
+      "themeRequests": 50,
+      "requests": 376
+    },
+    {
+      "score": 99,
+      "lcp": 621.9259999999999,
+      "cls": 0.004313607512483648,
+      "tbt": 10,
+      "fcp": 581.9259999999999,
+      "weight": 1715591,
+      "themeRequests": 50,
+      "requests": 378
+    }
+  ]
+}
