@@ -151,7 +151,7 @@ Results and DevTools traces: [`perf/results/interaction-baseline/`](perf/results
 
 ## Lighthouse CI
 
-[`.github/workflows/lighthouse.yml`](.github/workflows/lighthouse.yml) runs Shopify's Lighthouse CI action on every pull request and every push to `main`: it uploads the commit as a development theme, measures home, product and collection, and `perf/ci-budget.mjs` checks the medians against the failure thresholds read from [`perf/budget.md`](perf/budget.md). It authenticates with a Theme Access password. Details: [`perf/README.md`](perf/README.md#lighthouse-ci), [decision 21](docs/decisions.md#21-lighthouse-ci-through-shopifys-action-budgets-checked-from-perfbudgetmd).
+[`.github/workflows/lighthouse.yml`](.github/workflows/lighthouse.yml) runs Shopify's Lighthouse CI action on every pull request and every push to `main`: it uploads the commit as a development theme, measures home, product and collection, and `perf/ci-budget.mjs` checks the medians against the failure thresholds read from [`perf/budget.md`](perf/budget.md). It authenticates with a Theme Access password. The workflow reports budget breaches without failing: the runner's CPU is about 1.5× slower than the local machine by Lighthouse's benchmark index, and its TBT is dominated by Shopify's platform scripts and varies between runs (collection 362–989 ms on one pull request), so a required check would fail on the runner rather than on the theme. Required mode fails on a breach, as a local run on the baseline's results shows (11 breaches, exit code 1). Details: [`perf/README.md`](perf/README.md#lighthouse-ci), [decision 21](docs/decisions.md#21-lighthouse-ci-through-shopifys-action-budgets-checked-from-perfbudgetmd).
 
 ## Reproduction
 
@@ -185,7 +185,7 @@ Checks: `npm run format:check`, `npm run lint`, `npm run theme-check`.
 - **TBT is not INP.** TBT is a lab proxy for main-thread blocking during load; the interaction diagnostic is a single scripted scenario in the lab.
 - **Lab numbers depend on the machine.** Lighthouse's simulated throttling (Lantern) scales what the local Chrome observes, so the same theme gives different absolute numbers on different machines. Every table here comes from one Ubuntu machine, and comparisons are made only within one session.
 - **Two-state mobile LCP.** Mobile LCP of home and product switches between a fast and a slow state between runs, on `main` and, less often, on Dawn stock; five runs per series cannot pin down how often each state occurs.
-- **Lighthouse CI** uses 3 mobile runs on a GitHub-hosted runner; it guards against regressions and is not the source of the reported results.
+- **Lighthouse CI** uses 3 mobile runs on a GitHub-hosted runner with a slower CPU; it guards against regressions in report mode and is not the source of the reported results.
 - **Video poster.** The `poster` of the promo video below the first screen (`hero-poster.jpg`, 161 KiB) is requested at the same time as the LCP slide on home.
 
 ## Licenses
