@@ -18,14 +18,14 @@ Not imported: Dawn's `README.md`, `release-notes.md`, `.github/`, `.gitignore`. 
 
 ### Changed Dawn files
 
-| File                                  | Change                                                                         |
-| ------------------------------------- | ------------------------------------------------------------------------------ |
-| `layout/theme.liquid`                 | Head scripts, resource hints and global stylesheets added                      |
-| `templates/index.json`                | Hero carousel and promo video sections added; the image banner section removed |
-| `snippets/product-thumbnail.liquid`   | `fetchpriority="high"` on the first product image                              |
-| `snippets/card-product.liquid`        | Empty rating slot at the end of the card text                                  |
-| `sections/main-product.liquid`        | Empty rating slot after the title block                                        |
-| `locales/*.json` (storefront locales) | `sections.video.pause_video` added in every language                           |
+| File                                  | Change                                                                               |
+| ------------------------------------- | ------------------------------------------------------------------------------------ |
+| `layout/theme.liquid`                 | Deferred scripts, a loader for the vendor-style scripts and `theme-custom.css` added |
+| `templates/index.json`                | Hero carousel and promo video sections added; the image banner section removed       |
+| `snippets/product-thumbnail.liquid`   | `fetchpriority="high"` on the first product image                                    |
+| `snippets/card-product.liquid`        | Empty rating slot at the end of the card text                                        |
+| `sections/main-product.liquid`        | Empty rating slot after the title block                                              |
+| `locales/*.json` (storefront locales) | `sections.video.pause_video` added in every language                                 |
 
 ## jQuery
 
