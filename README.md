@@ -32,7 +32,7 @@ Final benchmark, 2026-11-17, all three themes in one session, 5 runs per page, m
 
 Full method: [`perf/README.md`](perf/README.md). In short:
 
-- Lighthouse 13.5.0 through `perf/run.mjs`, Chrome 157, Ubuntu (Linux 7.3), default mobile preset (simulated slow 4G, 4× CPU slowdown) and desktop preset.
+- Lighthouse 13.5.0 through `perf/run.mjs`, default mobile preset (simulated slow 4G, 4× CPU slowdown) and desktop preset. Every Lighthouse series ran on one Ubuntu machine (Linux 7.3.0-9, later 7.3.0-10): the first baseline and Dawn stock series, `o01` and `o02` on Chrome 156.0.8078.47, every later series on Chrome 157. The interaction diagnostic ran in one session on 2026-11-16 on Windows 11 with Chrome 157.0.8103.78. Comparisons are made only within one session and one machine; every `environment.json` records the versions.
 - 5 runs per URL, each metric reported as its own median; the full result of the run with the median score is stored next to every run's metrics.
 - URLs on the store domain with `pb=0`; unpublished themes through `preview_theme_id`. The script checks the served theme id before measuring; products were purchasable (no "Sold out") before each series.
 - Pages: home `/`, product `/products/ridge-22-daypack`, collection `/collections/backpacks`.
@@ -183,7 +183,7 @@ Checks: `npm run format:check`, `npm run lint`, `npm run theme-check`.
 - **Synthetic store.** The baseline problems are local simulations: the vendor-style scripts are busy waits that send nothing, the reviews widget is a timer. They reproduce the cost of the real thing, not its exact behaviour.
 - **No field data.** The store is password-protected and has no real traffic, so CrUX and the Web Performance Dashboard have nothing to report. No result here is a Core Web Vitals assessment.
 - **TBT is not INP.** TBT is a lab proxy for main-thread blocking during load; the interaction diagnostic is a single scripted scenario in the lab.
-- **Lab numbers depend on the machine.** Lighthouse's simulated throttling (Lantern) scales what the local Chrome observes, so the same theme gives different absolute numbers on different machines. Every table here comes from one Ubuntu machine, and comparisons are made only within one session.
+- **Lab numbers depend on the machine.** Lighthouse's simulated throttling (Lantern) scales what the local Chrome observes, so the same theme gives different absolute numbers on different machines. Every Lighthouse table comes from one Ubuntu machine (Chrome 156 up to `o02`, Chrome 157 after it); the interaction diagnostic comes from one Windows 11 session with Chrome 157.0.8103.78. Comparisons are made only within one session and one machine.
 - **Two-state mobile LCP.** Mobile LCP of home and product switches between a fast and a slow state between runs, on `main` and, less often, on Dawn stock; five runs per series cannot pin down how often each state occurs.
 - **Lighthouse CI** uses 3 mobile runs on a GitHub-hosted runner with a slower CPU; it guards against regressions in report mode and is not the source of the reported results.
 - **Video poster.** The `poster` of the promo video below the first screen (`hero-poster.jpg`, 161 KiB) is requested at the same time as the LCP slide on home.
