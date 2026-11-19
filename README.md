@@ -96,6 +96,8 @@ Results: [`perf/results/final-dawn-stock/`](perf/results/final-dawn-stock/), [`p
 
 On desktop every page meets every budget except home page weight (2562 KiB against 2000; failure threshold 4000). The Theme Store average is 81.3 on mobile and 99.0 on desktop, above the floor of 60. A missed budget is a value between the target and the failure threshold.
 
+The mobile page-weight budget of 1600 KiB is out of reach for any theme on this store. Of Dawn stock's 1790 KiB on home, the theme controls 277 KiB: the document, its `/cdn/shop/` assets and its font files. The other 1513 KiB is served by Shopify's platform: `/cdn/shopifycloud/` (974 KiB of checkout assets alone), shop-js, Shop Pay, web pixels and telemetry (`perf/results/final-dawn-stock/home-mobile.json`, `network-requests`). The budget stays unchanged because it was fixed before the first optimisation.
+
 ## Same features
 
 The baseline problems are described in [`docs/baseline.md`](docs/baseline.md). `main` keeps each feature and changes how it is delivered.
