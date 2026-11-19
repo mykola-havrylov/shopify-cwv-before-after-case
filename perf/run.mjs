@@ -273,6 +273,7 @@ async function main() {
     const order = runs.map((metrics, index) => ({ index, score: metrics.score })).sort((a, b) => a.score - b.score);
     const representative = reports[order[Math.floor((order.length - 1) / 2)].index];
 
+    delete representative.configSettings.extraHeaders;
     const name = `${page.name}-${options.formFactor}`;
     await writeFile(path.join(dir, `${name}.json`), JSON.stringify(representative));
     await writeFile(
