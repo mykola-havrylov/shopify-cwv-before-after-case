@@ -87,6 +87,12 @@ The final benchmark has the same split with the opposite sign: `main` is the pub
 
 Only the result of the median-score run is stored per series, so the stylesheet counts above come from one run each. A future series should measure both sides as unpublished previews, for example the control as a duplicate of the published theme.
 
+## Slow LCP runs: a hypothesis
+
+Mobile LCP of home and product is multimodal (README, Final benchmark). The LCP breakdown in the stored results points at painting, not loading. In the slow stored runs the observed `elementRenderDelay` is 826–2011 ms: `o07` home (LCP 10.09 s, 2011 ms) and product (8.48 s, 826 ms), `final-main` product (5.08 s, 1034 ms). In the faster stored runs of `o08`, `o09`, `o10` home and product and `final-main` home (LCP 2.73–4.57 s) it is 24–49 ms. Time to first byte, resource load delay and resource load duration stay within 18–400 ms in all of them, so the LCP image has arrived and its paint is delayed. Source: the `lcp-breakdown-insight` audit of `<page>-mobile.json` in those folders.
+
+This is a hypothesis. Only one full result per series is stored, the run with the median score, so the other runs cannot be checked, and not every slow run fits: the `o09` control home result (LCP 6.24 s) has an `elementRenderDelay` of 28 ms. Future series should keep the full result of all five runs.
+
 ## Lighthouse CI
 
 `.github/workflows/lighthouse.yml` runs on every pull request from this repository and on every push to `main`:

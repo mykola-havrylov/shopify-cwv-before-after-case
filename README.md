@@ -59,7 +59,7 @@ Full method: [`perf/README.md`](perf/README.md). In short:
 
 Shopify weighted score: Dawn stock 95.4, baseline 50.7, main 82.0. Theme Store average (floor 60): 95.7, 51.0, 81.3.
 
-Mobile LCP of `main` has two states, as in the incremental series: home 3.33–6.56 s across the five runs, product 2.58 s and 3.33 s in two runs and 5.08–5.13 s in three. The baseline is stable in its slowness (home 14.81–15.04 s, product 12.87–13.01 s). Dawn stock also has a slow run on product and on collection (4.86 s and 4.85 s).
+Mobile LCP of `main` varies from run to run: home 3.33–6.56 s across the five runs, product 2.58 s and 3.33 s in two runs and 5.08–5.13 s in three. It is multimodal: from `o03` on, every mobile product run of the incremental series and the final benchmark falls into one of three groups, 2.58–3.85 s, 4.98–5.13 s and 8.09–9.29 s (`perf/results/*/product-mobile.runs.json`). The baseline is slow on every run of home (14.81–15.04 s) and product (12.87–13.01 s), but not uniform on collection: 12.33, 12.48, 6.78, 6.93 and 6.00 s. The upper bound of 3.4× above is the collection ratio and uses that median of 6.93 s. Dawn stock also has a slow run on product and on collection (4.86 s and 4.85 s).
 
 ### Desktop
 
@@ -134,7 +134,7 @@ Each optimisation was merged separately and tagged `o01`–`o10`. Every step was
 | `o09` | Resource hints reduced                      | Weight 3464 → 2371 KiB on home, 3021 → 1768 KiB on product. Product LCP 2.73–3.33 s in all five runs. Product TBT rose 320 → 493 ms: the same long tasks in a shorter window                                                                                                                                                                                                                                      | [18](docs/decisions.md#18-resource-hints-reduced-to-dawns-own)                                           |
 | `o10` | Long tasks split, forced layout removed     | TBT 503 → 191 ms on product, 346 → 158 ms on home (desktop 39–43 → 10 ms)                                                                                                                                                                                                                                                                                                                                         | [19](docs/decisions.md#19-long-tasks-split-and-layout-reads-removed-from-the-interaction-handler)        |
 
-The controls of different steps differ because each step was measured in its own session, and the mobile LCP of the product page and, after `o04`, of home switches between a fast and a slow state from run to run. A step is credited with an LCP change only where the runs before and after separate clearly.
+The controls of different steps differ because each step was measured in its own session, and the mobile LCP of the product page and, after `o04`, of home switches between a fast state and one or two slower ones from run to run. A step is credited with an LCP change only where the runs before and after separate clearly.
 
 ## Interaction latency diagnostic
 
@@ -187,7 +187,7 @@ Checks: `npm run format:check`, `npm run lint`, `npm run theme-check`.
 - **No field data.** The store is password-protected and has no real traffic, so CrUX and the Web Performance Dashboard have nothing to report. No result here is a Core Web Vitals assessment.
 - **TBT is not INP.** TBT is a lab proxy for main-thread blocking during load; the interaction diagnostic is a single scripted scenario in the lab.
 - **Lab numbers depend on the machine.** Lighthouse's simulated throttling (Lantern) scales what the local Chrome observes, so the same theme gives different absolute numbers on different machines. Every Lighthouse table comes from one Ubuntu machine (Chrome 156 up to `o02`, Chrome 157 after it); the interaction diagnostic comes from one Windows 11 session with Chrome 157.0.8103.78. Comparisons are made only within one session and one machine.
-- **Two-state mobile LCP.** Mobile LCP of home and product switches between a fast and a slow state between runs, on `main` and, less often, on Dawn stock; five runs per series cannot pin down how often each state occurs.
+- **Multimodal mobile LCP.** Mobile LCP of home and product switches between a fast state and one or two slower ones between runs, on `main` and, less often, on Dawn stock; five runs per series cannot pin down how often each state occurs. The cause is a hypothesis ([slow LCP runs](perf/README.md#slow-lcp-runs-a-hypothesis)): only the full result of the median-score run is stored, so future runs should keep all five.
 - **Lighthouse CI** uses 3 mobile runs on a GitHub-hosted runner with a slower CPU; it guards against regressions in report mode and is not the source of the reported results.
 - **Video poster.** The `poster` of the promo video below the first screen (`hero-poster.jpg`, 161 KiB) is requested at the same time as the LCP slide on home.
 
