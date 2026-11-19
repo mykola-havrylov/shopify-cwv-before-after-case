@@ -2,6 +2,10 @@
 
 A Dawn `v16.0.0` theme for a fictional outdoor-gear store, deliberately slowed down with ten typical storefront problems and then optimised one change at a time, with every step measured by reproducible Lighthouse runs.
 
+**Baseline → main, mobile, one session, 5-run medians:** LCP 14.96 → 4.52 s (home), 13.01 → 5.08 s (product), 6.93 → 2.01 s (collection); home page weight 12940 → 2395 KiB. Interaction latency 208–264 → 24–48 ms in a separate lab diagnostic of 5 visits, not field INP.
+Ten baseline problems, fixed one per tagged change (`o01`–`o10`), each measured as its own A/B pair.
+Not hidden: mobile LCP on home and product still crosses the 4 s failure threshold, see [Budgets](#budgets).
+
 | Theme           | Storefront                                                                    | Code                                                                                                                  |
 | --------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | Optimised       | [cwv-demo.myshopify.com](https://cwv-demo.myshopify.com/?pb=0)                | [`main`](https://github.com/mykola-havrylov/shopify-cwv-before-after-case/tree/main)                                  |
