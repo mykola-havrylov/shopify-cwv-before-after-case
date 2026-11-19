@@ -190,7 +190,12 @@ Checks: `npm run format:check`, `npm run lint`, `npm run theme-check`.
 - **Lab numbers depend on the machine.** Lighthouse's simulated throttling (Lantern) scales what the local Chrome observes, so the same theme gives different absolute numbers on different machines. Every Lighthouse table comes from one Ubuntu machine (Chrome 156 up to `o02`, Chrome 157 after it); the interaction diagnostic comes from one Windows 11 session with Chrome 157.0.8103.78. Comparisons are made only within one session and one machine.
 - **Multimodal mobile LCP.** Mobile LCP of home and product switches between a fast state and one or two slower ones between runs, on `main` and, less often, on Dawn stock; five runs per series cannot pin down how often each state occurs. The cause is a hypothesis ([slow LCP runs](perf/README.md#slow-lcp-runs-a-hypothesis)): only the full result of the median-score run is stored, so future runs should keep all five.
 - **Lighthouse CI** uses 3 mobile runs on a GitHub-hosted runner with a slower CPU; it guards against regressions in report mode and is not the source of the reported results.
-- **Video poster.** The `poster` of the promo video below the first screen (`hero-poster.jpg`, 161 KiB) is requested at the same time as the LCP slide on home.
+- **Known theme issues, left unchanged.** Found in the final audit after the benchmark and not fixed, so the numbers describe the shipped code:
+  - The first hero slide is always `loading="eager"` with `fetchpriority="high"`, wherever the section sits; both should follow [`section.index`](https://shopify.dev/docs/storefronts/themes/best-practices/performance/use-section-index).
+  - The carousel dots are 10 × 10 px, 8 px apart: below the 24 px minimum of [WCAG 2.2 SC 2.5.8](https://www.w3.org/TR/WCAG22/#target-size-minimum).
+  - A slide change is not announced: the carousel has no `aria-live` region.
+  - In `sections/hero-carousel.liquid:52` the `widths` list includes 2400 and 3000, above the `image_url: width: 1920` it is built on; the [`image_tag` reference](https://shopify.dev/docs/api/liquid/filters/image_tag) does not say what happens to such widths, and the list should stop at 1920.
+  - The `poster` of the promo video below the first screen (`hero-poster.jpg`, 161 KiB) is one fixed file, not responsive, and is requested at the same time as the LCP slide on home.
 
 ## Licenses
 
