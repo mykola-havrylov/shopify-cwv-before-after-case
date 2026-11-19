@@ -72,6 +72,21 @@ Medians are computed per metric, so the values in `summary.md` can come from dif
 
 Budgets and failure thresholds: [`budget.md`](budget.md).
 
+## A/B asymmetry
+
+In every step `oNN` the control is the published theme on its plain URL and the "after" side is an unpublished development theme measured through `preview_theme_id`. The stored Lighthouse results show that the two are not served alike:
+
+- `theme-hot-reload.js` (`/cdn/shopifycloud/theme-hot-reload/`, 4.5 KiB transferred) loads on every unpublished theme — baseline, Dawn stock and every "after" series — and on no published one. It is a platform path, so it adds to page weight and all requests, not to theme requests.
+- In the stored control results some theme stylesheets have `transferSize: 0`: 9–10 on every page of the `o04`–`o08` controls, 10 on three of four pages of the `o02` control, 10 on both desktop pages of the `o01` control and on one page of the `o03` control, 2–4 on every page of the `o09` and `o10` controls. No "after" series, baseline or Dawn stock result has any. The cause is not established.
+
+Both add bytes and a script only to the "after" side, so the effect credited to a step is conservative. Where a control page has 9–10 such stylesheets, the same files transfer 37–57 KiB in the "after" result up to `o07` and 20–22 KiB in `o08`; the 2–4 files of `o09` and `o10` transfer 12–21 KiB.
+
+Example, `o07` mobile weight: home 3452 → 3501 KiB, product 2993 → 3039 KiB, with no overlap between the runs (home 3447–3454 against 3499–3503 KiB, product 2989–2994 against 3034–3040 KiB). The stored control has 10 (home) and 9 (product) stylesheets at `transferSize: 0` that transfer 40.6 and 39.1 KiB in the "after" result; with the 4.5 KiB of `theme-hot-reload.js` that is 45.1 of the 49 KiB on home and 43.6 of the 46 KiB on product. Sources: `perf/results/o07-control/` and `perf/results/o07/`, `<page>-mobile.json` and `<page>-mobile.runs.json`.
+
+The final benchmark has the same split with the opposite sign: `main` is the published theme, baseline and Dawn stock are previews, so only they load `theme-hot-reload.js`; `final-main` has 2 stylesheets at `transferSize: 0` on the desktop product and collection pages.
+
+Only the result of the median-score run is stored per series, so the stylesheet counts above come from one run each. A future series should measure both sides as unpublished previews, for example the control as a duplicate of the published theme.
+
 ## Lighthouse CI
 
 `.github/workflows/lighthouse.yml` runs on every pull request from this repository and on every push to `main`:
