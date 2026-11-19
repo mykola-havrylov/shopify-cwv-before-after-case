@@ -70,7 +70,7 @@ export default [
     },
   },
   {
-    files: ['perf/**/*.{js,mjs}', 'scripts/**/*.{js,mjs}', '*.config.js'],
+    files: ['perf/**/*.{js,mjs}', 'scripts/**/*.{js,mjs}', 'tests/**/*.{js,mjs}', '*.config.js'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',

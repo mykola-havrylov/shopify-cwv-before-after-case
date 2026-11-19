@@ -183,7 +183,7 @@ node perf/interaction.mjs --store cwv-demo.myshopify.com --label interaction-mai
 
 On another store: create the catalogue with `npm run catalog:seed` (Admin API credentials of a Dev Dashboard app in `.env`, see [`.env.example`](.env.example) and [`data/catalog.md`](data/catalog.md)), push `main` and `baseline` as themes, add Dawn `v16.0.0` as the third, and use their theme ids above.
 
-Checks: `npm run format:check`, `npm run lint`, `npm run theme-check`.
+Checks: `npm run format:check`, `npm run lint`, `npm run theme-check`, `npm test` (the budget check and the metric helpers in `perf/`).
 
 ## Limitations
 

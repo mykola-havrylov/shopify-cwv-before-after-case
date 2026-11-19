@@ -22,14 +22,14 @@ const METRICS = {
   'Theme requests': { key: 'themeRequests', format: (v) => v.toFixed(0) },
 };
 
-function parseThreshold(cell) {
+export function parseThreshold(cell) {
   const match = cell.trim().match(/^([<>])\s*([\d.]+)\s*(ms|s|KiB)?$/);
   if (!match) throw new Error(`Unreadable failure threshold "${cell}" in perf/budget.md.`);
   const [, operator, value, unit = ''] = match;
   return { operator, value: Number(value) * UNITS[unit], text: cell.trim() };
 }
 
-function parseBudget(markdown) {
+export function parseBudget(markdown) {
   const thresholds = {};
   for (const section of markdown.split(/^## /m)) {
     const formFactor = section.startsWith('Mobile') ? 'mobile' : section.startsWith('Desktop') ? 'desktop' : null;
@@ -46,7 +46,7 @@ function parseBudget(markdown) {
   return thresholds;
 }
 
-function pageOf(url) {
+export function pageOf(url) {
   const { pathname } = new URL(url);
   if (pathname === '/') return 'home';
   if (pathname.startsWith('/products/')) return 'product';
@@ -54,7 +54,8 @@ function pageOf(url) {
   return null;
 }
 
-function breaches(value, threshold) {
+export function breaches(value, threshold) {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return true;
   return threshold.operator === '<' ? value < threshold.value : value > threshold.value;
 }
 
@@ -75,7 +76,7 @@ async function readResults(dir) {
   return { pages, links };
 }
 
-function report(thresholds, { pages, links }) {
+export function report(thresholds, { pages, links = {} }) {
   const lines = [];
   let failures = 0;
   for (const [formFactor, byPage] of Object.entries(pages)) {
@@ -105,10 +106,14 @@ function report(thresholds, { pages, links }) {
         .map((l) => `${l.name} ${l.text}`)
         .join(', ')}.`,
     );
-    if (Object.keys(PAGE_WEIGHTS).every((page) => page in scores)) {
+    const missing = Object.keys(PAGE_WEIGHTS).filter((page) => !(page in scores));
+    if (missing.length) {
+      failures += 1;
+      lines.push(`Theme Store average ❌ not computed: no results for ${missing.join(', ')}.`);
+    } else {
       const average = Object.values(scores).reduce((sum, score) => sum + score, 0) / 3;
       const weighted = Object.entries(PAGE_WEIGHTS).reduce((sum, [page, weight]) => sum + scores[page] * weight, 0);
-      const failed = average < THEME_STORE_FLOOR;
+      const failed = !(average >= THEME_STORE_FLOOR);
       failures += failed ? 1 : 0;
       lines.push(
         `Theme Store average ${failed ? '❌' : '✅'} ${average.toFixed(1)} (floor ${THEME_STORE_FLOOR}); ` +
@@ -150,9 +155,11 @@ async function main() {
   else if (problem) console.log(`::warning::${problem}; report-only mode.`);
 }
 
-try {
-  await main();
-} catch (error) {
-  console.error(`Error: ${error.message}`);
-  process.exitCode = 1;
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    await main();
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exitCode = 1;
+  }
 }
