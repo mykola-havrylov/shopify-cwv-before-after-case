@@ -185,6 +185,22 @@ On another store: create the catalogue with `npm run catalog:seed` (Admin API cr
 
 Checks: `npm run format:check`, `npm run lint`, `npm run theme-check`, `npm test` (the budget check and the metric helpers in `perf/`).
 
+## How this was built
+
+Built between 15 October and 17 November 2026 with Claude Code as the coding agent, under my review.
+
+- **Mine:** the scope (the ten baseline problems, the pages and the metrics) and the budgets in `perf/budget.md`, fixed before the first optimisation.
+- **Proposed by the agent, approved by me:** the measurement method (5 runs, per-metric medians, control and change in one session, served-theme check), the one-change-per-tag workflow, and every merge, after reviewing its diff and measurements.
+- **Caught in review and fixed:**
+  - unpublished themes measured through shopifypreview.com instead of `preview_theme_id` on the store domain (`25554e8`);
+  - the request budget counting Shopify's platform requests (`b2915ca`, [decision 8](docs/decisions.md#8-requests-are-counted-as-theme-requests));
+  - an `o01` LCP gain that the next control did not reproduce, withdrawn in [decision 10](docs/decisions.md#10-responsive-images-through-image_picker-image_url-and-image_tag);
+  - Theme Check in CI breaking on an unpinned CLI (`738b071`);
+  - Lighthouse CI unable to create themes with app credentials, switched to a Theme Access password (`71832d8`);
+  - a final audit of the numbers against the raw results.
+
+Product images were generated with Codex ([`docs/ai-assets.md`](docs/ai-assets.md)).
+
 ## Limitations
 
 - **Synthetic store.** The baseline problems are local simulations: the vendor-style scripts are busy waits that send nothing, the reviews widget is a timer. They reproduce the cost of the real thing, not its exact behaviour.
